@@ -1,0 +1,69 @@
+% This is based on the LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.4 for LaTeX2e as of 16. April 2010
+%
+% See http://www.springer.com/computer/lncs/lncs+authors?SGWID=0-40209-0-0-0
+% for the full guidelines.
+%
+\documentclass{llncs}
+\usepackage[utf8]{inputenc}
+\usepackage[nolist,nohyperlinks]{acronym}
+
+\begin{document}
+
+\title{Power-Aware Security Protocols for the Internet of Things}
+%
+\titlerunning{}  % abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+\author{Tiago Diogo}
+%
+\authorrunning{Tiago Diogo} % abbreviated author list (for running head)
+%
+%%%% list of authors for the TOC (use if author list has to be modified)
+\tocauthor{Tiago Diogo}
+%
+\institute{Instituto Superior T\'ecnico, Avenida Rovisco Pais 1, Lisboa,\\
+\email{tiago.diogo@tecnico.ulisboa.pt}}
+
+\maketitle              % typeset the title of the contribution
+
+\begin{abstract}
+The abstract should summarize the contents of the paper
+using at least 70 and at most 150 words.
+\keywords{}
+\end{abstract}
+
+\section{Introduction}
+\input{sections/introduction}
+
+\section{Main Goals}
+\input{sections/main-goals}
+
+\section{Related Work}
+\input{sections/related-work}
+
+\section{Proposed Solution}
+\input{sections/proposed-solution}
+
+\section{Work Evaluation}
+\input{sections/work-evaluation}
+
+\section{Work Planning}
+\input{sections/work-planning}
+
+\section{Conclusion}
+\input{sections/conclusion}
+
+%
+% ---- Bibliography ----
+
+\bibliographystyle{splncs}
+\bibliography{references.bib}
+
+
+% *** DEFINITION OF ACRONYMS ***
+\acrodef{API}{Application Programming Interface}
+\end{document}
