@@ -1,4 +1,4 @@
-NAME=report
+NAME=main
 pdflatex $NAME
 bibtex $NAME
 pdflatex $NAME
