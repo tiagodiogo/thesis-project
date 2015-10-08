@@ -1,22 +1,47 @@
 \subsection{Protocol Analysis and Selection}
 
-
-
-\subsubsection{Web Protocols}
-
 \paragraph{
-place here a study on web protocols, focus on http and show how it works and how spread it is.
-provide a study on resource consumption, laying the bed for the next section( iot protocols )
+	pequeno texto inicial sobre este assunto, referir o paper que faz o survey sobre as soluções existentes de 2015 \cite{Al-Fuqaha2015}
 }
 
-\subsubsection{IoT Protocols}
+\paragraph{\textbf{\ac{HTTP}}}
 \paragraph{
-do a large analysis of mqtt, coap and 6lowpan protocols. provide tables with diferences between mqtt and coap from the study paper \cite{Ma2014}
+	This is the resume about HTTP
+	referir que é bom mas não está adaptado às necessidades dos aparelhos com poucos recursos
 }
-\subsubsection{IoT Protocols Security and Improvements}
+
+\paragraph{\textbf{\ac{CoAP}}}
 \paragraph{
-related work regarding protocol improvements and security (citar aqui os papers fixes)
-coap security analysis (citar aqui que isto ainda não está a ir buscar sozinho e fazer à mão não pode ser)
+	This is the resume about CoAP
+	referir o paper que mostra claramente que o coap consome menos recursos que o HTTP \cite{Savolainen2014}
+}
+
+\paragraph{\textbf{\ac{MQTT}}}
+\paragraph{
+	This is the resume about MQTT
+	referir o paper que faz a comparação entre o mqtt e o coap mostrando que o coap é melhor (na maioria) \cite{Ma2014}
+	referir que foi desenvolvido o mqtt-sn \cite{Ibm2013} especifico para sensor networks
+}
+
+\paragraph{
+	$\rightarrow$ colocar aqui a tabela comparativa entre os 3 procotocolos $\leftarrow$
+}
+
+\paragraph{
+	$\rightarrow$ colocar aqui o desenho bonito das layers web vs layers IoT $\leftarrow$
+}
+
+\subsection{Security and Improvements}
+
+\paragraph{\textbf{\ac{TLS}}}
+\paragraph{
+	This is the resume about TLS
+}
+
+\paragraph{\textbf{\ac{DTLS}}}
+\paragraph{
+	This is the resume about DTLS
+	paper que diz mal do \ac{DTLS} \cite{Alghamdi2013} e diz que outra solução é necessária
 }
 
 \subsection{Attack Analysis, Detection and Prevention}
@@ -26,3 +51,7 @@ coap security analysis (citar aqui que isto ainda não está a ir buscar sozinho
 do some work identifying threats to the web in general
 }
 \subsubsection{IoT Attacks}
+\paragraph{
+	focus on the power-drain attacks
+	alguns papers ainda não filtrados: \cite{Vasserman2013,Vanitha2014}
+}
