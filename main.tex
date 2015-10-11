@@ -7,13 +7,21 @@
 % for the full guidelines.
 %
 \documentclass{llncs}
+
 \usepackage[utf8]{inputenc}
 \usepackage[nolist,nohyperlinks]{acronym}
 \usepackage[stable]{footmisc}
 \usepackage{mathtools}
+\usepackage{rotating}
+\usepackage{pifont}
+
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+\setcounter{secnumdepth}{3}
+\setlength{\arrayrulewidth}{0.2pt}%.4pt
+{\renewcommand{\arraystretch}{1.2}
 
 \begin{document}
-\setcounter{secnumdepth}{3}
 
 \title{Power-Aware Security Protocols for the Internet of Things}
 %
@@ -33,11 +41,6 @@
 
 \maketitle              % typeset the title of the contribution
 
-\begin{abstract}
-The abstract should summarize the contents of the paper
-using at least 70 and at most 150 words.
-\keywords{}
-\end{abstract}
 
 \section{Introduction}
 \input{sections/introduction}
@@ -69,8 +72,17 @@ using at least 70 and at most 150 words.
 % *** DEFINITION OF ACRONYMS ***
 \acrodef{IoT}{Internet of Things}
 \acrodef{MQTT}{Message Queue Telemetry Transport}
+\acrodef{MQTT-SN}{Message Queue Telemetry Transport for Sensor Networks}
 \acrodef{CoAP}{Constrained Application Protocol}
 \acrodef{HTTP}{Hypertext Transfer Protocol}
 \acrodef{TLS}{Transport Layer Security}
 \acrodef{DTLS}{Datagram Transport Layer Security}
+\acrodef{WWW}{World Wide Web}
+\acrodef{MTU}{Maximum Transmission Unit}
+\acrodef{TCP}{Transmission Control Protocol}
+\acrodef{REST}{REpresentational State Transfer}
+\acrodef{UDP}{User Datagram Protocol}
+\acrodef{URIs}{Universal Resource Identifiers}
+\acrodef{M2M}{Machine to Machine}
+\acrodef{QoS}{Quality of Service}
 \end{document}

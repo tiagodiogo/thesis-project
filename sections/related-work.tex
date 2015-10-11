@@ -1,31 +1,71 @@
 \subsection{Protocol Analysis and Selection}
 
 \paragraph{
-	pequeno texto inicial sobre este assunto, referir o paper que faz o survey sobre as soluções existentes de 2015 \cite{Al-Fuqaha2015}
+	There are many alternatives and some proposed standards when it comes to choose a protocol for \ac{IoT} communications. The decision must be based on the particularities of the devices to be used and the objective of the application itself, however a thoroughly analysis of the existing solutions is a proper way to unveil the strong and weak points of each protocol providing a good basis for an informed decision. ( * maneira boa de referir o paper aqui * ) a survey from January 2015 \cite{Al-Fuqaha2015} covering the main application and network protocols will be the starting point for the analysis to follow.
 }
 
 \paragraph{\textbf{\ac{HTTP}}}
 \paragraph{
-	This is the resume about HTTP
-	referir que é bom mas não está adaptado às necessidades dos aparelhos com poucos recursos
+	\ac{HTTP} is an application level protocol that works in the request-response model and is the foundation of data communication on the \ac{WWW} It's primarily design to run over \ac{TCP} which is a problem in lossy and constrained environments due to the delivery assurances and congestion control algorithms it employs. Besides, {HTTP} is verbose, text-based, and not suited for compact message exchanges. Moreover, the header size required for a message exchange can leave too few payload space in constrained networks like the IEEE 802.15.4-based networks where the \ac{MTU} size of the protocol is 127 bytes. These protocol specifications would not raise any issues in standard \ac{WWW} communications, but when it comes to constrained environments it is clear that the protocol is not adequate to the necessities of \ac{IoT} devices and networks.
 }
 
 \paragraph{\textbf{\ac{CoAP}}}
 \paragraph{
-	This is the resume about CoAP
-	referir o paper que mostra claramente que o coap consome menos recursos que o HTTP \cite{Savolainen2014}
+	\ac{CoAP} is a document transfer protocol based on \ac{REST} on top of \ac{HTTP} functionalities. \ac{CoAP} objective is to enable tiny constrained devices to use RESTful interactions, where clients and servers expose and consume web services using \ac{URIs} together with  \ac{HTTP} get, post, put and delete methods. Unlike \ac{REST}, \ac{CoAP} runs over \ac{UDP} instead of \ac{TCP} which makes it suitable for full IP networking in small micro-controllers. Retries and reordering are implemented at the application stack using a messaging sub-layer that detects duplicated messages and provides reliable communication using different types of messages. Confirmable messages must be acknowledged by the receiver, nonconfirmable one are fire and forget. While being a lightweight protocol, \ac{CoAP} still provides important features: (não consigo meter um itemize aqui... pls help...)
+Resource Observation - \ac{CoAP} can extend the \ac{HTTP} request model with the ability to observe a resource therefore monitoring resources of interest using a publish/subscribe mechanism.
+Resource Discovery - \ac{CoAP} servers provide a list of resources using well-known {URIs} that allow clients to discover what resources are provided and their types.
+Interoperability - since \ac{CoAP} is based on the \ac{REST} architecture, a simple proxy enables \ac{CoAP} to easily interoperate with \ac{HTTP}.
+A study that compared \ac{CoAP} and \ac{HTTP} using mobile networks concluded that there is no situation where \ac{CoAP} would consume more resources than \ac{HTTP} \cite{Savolainen2014}
 }
 
 \paragraph{\textbf{\ac{MQTT}}}
 \paragraph{
-	This is the resume about MQTT
-	referir o paper que faz a comparação entre o mqtt e o coap mostrando que o coap é melhor (na maioria) \cite{Ma2014}
-	referir que foi desenvolvido o mqtt-sn \cite{Ibm2013} especifico para sensor networks
+	\ac{MQTT} is a pusblish/subscribe messagins protocol designed for lightweight \ac{M2M} communications. It has a client/server model and consists of three components, the publisher, the subscriber and a broker.
+Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chuck of data, opaque to the broker. The broker, on his side, achieves security by checking authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels (meter itemize aqui) Fire and Forget, deliver at least once, deliver exactly once. Furthermore \ac{MQTT} has support for persistence messages stored on the broker, where the most recent message will be sent to a client that subscribes that topic. Clients can register a custom message to be sent to the broker on disconnect enabling other subscribers to know when a device disconnects. \ac{MQTT} runs on \ac{TCP} which in some cases causes drawbacks in performace. A performace evaluation of \ac{MQTT} and \ac{CoAP} \cite{Ma2014} provides comparisons on delays, data transfer and general overheads: (itemize aqui também)
+	referir que foi desenvolvido o \ac{MQTT-SN} \cite{Ibm2013} especifico para sensor networks \ac{DTLS} \ac{TLS}
 }
 
-\paragraph{
-	$\rightarrow$ colocar aqui a tabela comparativa entre os 3 procotocolos $\leftarrow$
-}
+\paragraph{mais coisas aqui}
+
+\begin{table}[ht]
+	\centering
+	\begin{center} \caption{\ac{IoT} Application Protocols Comparison} \end{center}
+	\label{tab:protocols}
+	\begin{tabular}{c|cccccc}
+		\begin{turn}{90}\begin{tabular}{@{}c@{}}Application \\ Protocol\end{tabular}\end{turn} &
+		\begin{turn}{90}\begin{tabular}{@{}c@{}}Publish/ \\ Subscribe\end{tabular}\end{turn} &
+		\begin{turn}{90}RESTful\end{turn} &
+		\begin{turn}{90}\begin{tabular}{@{}c@{}}Request/ \\ Response\end{tabular}\end{turn} &
+		\begin{turn}{90}\ac{QoS}\end{turn} &
+		\begin{turn}{90}Transport\end{turn} &
+		\begin{turn}{90}Security\end{turn} \\
+		\hline
+		\ac{HTTP} & \hspace{0.2cm}\xmark\hspace{0.2cm} & \hspace{0.2cm}\cmark\hspace{0.2cm} &
+		 \hspace{0.2cm}\cmark\hspace{0.2cm} & \hspace{0.2cm}\xmark\hspace{0.2cm} & 
+		 \hspace{0.2cm}\ac{TCP}\hspace{0.2cm} & \hspace{0.2cm}\ac{TLS}\hspace{0.2cm} \\
+		%\hline
+		\ac{CoAP} & \cmark & \cmark & \cmark & \cmark & \ac{UDP} & \ac{DTLS} \\
+		%\hline
+		\ac{MQTT} & \cmark & \xmark & \xmark & \cmark & \ac{TCP} & \ac{TLS}\\
+		%\hline
+		\ac{MQTT-SN} & \cmark & \xmark & \xmark & \cmark & \ac{UDP} & \ac{DTLS}
+	\end{tabular}
+\end{table}
+
+\begin{table}[h]
+	\centering
+	\begin{center} \caption{Protocol Stack Comparison Overview } \end{center}
+	\label{tab:stack}
+	\begin{tabular}{c|c}
+		Web & IoT \\
+		\hline
+		\ac{HTTP} & \ac{CoAP}/\ac{MQTT} \\
+		\ac{TLS} & \ac{DTLS} \\
+		\ac{TCP} & \ac{UDP} \\
+		IPv6 & 6LoWPAN 
+	\end{tabular}
+\end{table}
+
 
 \paragraph{
 	$\rightarrow$ colocar aqui o desenho bonito das layers web vs layers IoT $\leftarrow$
@@ -35,7 +75,7 @@
 
 \paragraph{\textbf{\ac{TLS}}}
 \paragraph{
-	This is the resume about TLS
+	This is the resume about TLS afoebfoewufbewoçubewfwefwfe
 }
 
 \paragraph{\textbf{\ac{DTLS}}}
