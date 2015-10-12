@@ -20,8 +20,27 @@ A study that compared \ac{CoAP} and \ac{HTTP} using mobile networks concluded th
 
 \paragraph{\textbf{\ac{MQTT}}}
 \paragraph{
-	\ac{MQTT} is a pusblish/subscribe messagins protocol designed for lightweight \ac{M2M} communications. It has a client/server model and consists of three components, the publisher, the subscriber and a broker.
-Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chuck of data, opaque to the broker. The broker, on his side, achieves security by checking authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels (meter itemize aqui) Fire and Forget, deliver at least once, deliver exactly once. Furthermore \ac{MQTT} has support for persistence messages stored on the broker, where the most recent message will be sent to a client that subscribes that topic. Clients can register a custom message to be sent to the broker on disconnect enabling other subscribers to know when a device disconnects. \ac{MQTT} runs on \ac{TCP} which in some cases causes drawbacks in performace. A performace evaluation of \ac{MQTT} and \ac{CoAP} \cite{Ma2014} provides comparisons on delays, data transfer and general overheads: (itemize aqui também)
+	\ac{MQTT} is a pusblish/subscribe messagins protocol designed for lightweight \ac{M2M} communications. It employs a client/server model and consists of three components, the publisher, the subscriber and a broker.
+Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chuck of data, opaque to the broker. The broker, on his side, achieves security by checking authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels:
+}
+
+\begin{itemize}
+	\item At Most Once (Fire and Forget): A message won't be acknowledged by the receiver or stored and redelivered by the sender.
+	\item At Least Once: It is guaranteed that the message will be delivered to the receiver, but more that one can reach the destination. The sender stores the message until it gets an acknowledge from the receiver.
+	\item Exactly Once: A four-way handshake mechanism is used to guarantee that the message will be received exactly once by the counterpart.
+\end{itemize}
+
+\paragraph{\ac{MQTT} has support for persistence messages stored on the broker, where the most recent message will be sent to a client that subscribes that topic. Clients can register a custom message to be sent to the broker on disconnect enabling other subscribers to know when a device disconnects. \ac{MQTT} runs on \ac{TCP} which in some cases causes drawbacks in performace. A performace evaluation of \ac{MQTT} and \ac{CoAP} \cite{Ma2014} provides comparisons on several protocol facets:
+}
+
+\begin{itemize}
+	\item Influence of Packet Loss on Delay: With low values of packet loss, \ac{MQTT} experienced lower delays, but as the packet loss increased \ac{CoAP} performed better. This is due to the greater \ac{TCP} overheads involved in the retransmissions of messages when compared to \ac{UDP}.
+	\item Influence of Packet Loss on Data Transfer: \ac{CoAP} generated less data for each packet loss versus all the \ac{MQTT} \ac{QoS} levels.
+	\item Overheads for Message Sizes: When packet loss rate is low, \ac{CoAP} generates less overhead than \ac{MQTT} for all message sizes, but as message size grows, the reverse is true. This happens because when the message size is is large, the probability that \ac{UDP} looses the message is higher than \ac{TCP} which causes \ac{CoAP} to retransmit the whole message more often than \ac{MQTT}.
+\end{itemize}
+
+\paragraph{
+	
 	referir que foi desenvolvido o \ac{MQTT-SN} \cite{Ibm2013} especifico para sensor networks \ac{DTLS} \ac{TLS}
 }
 
