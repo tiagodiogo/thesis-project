@@ -1,7 +1,7 @@
 \subsection{Protocol Analysis and Selection}
 
 \paragraph{
-	There are many alternatives and some proposed standards when it comes to choose a protocol for \ac{IoT} communications. The decision must be based on the particularities of the devices to be used and the objective of the application itself, however a thoroughly analysis of the existing solutions is a proper way to unveil the strong and weak points of each protocol providing a good basis for an informed decision. ( * maneira boa de referir o paper aqui * ) a survey from January 2015 \cite{Al-Fuqaha2015} covering the main application and network protocols will be the starting point for the analysis to follow.
+	There are many alternatives and some proposed standards when it comes to choose a protocol for \ac{IoT} communications. The decision must be based on the particularities of the devices to be used and the objective of the application itself, however a thoroughly analysis of the existing solutions is a proper way to unveil the strong and weak points of each protocol providing a good basis for an informed decision. A recent survey (January 2015) \cite{Al-Fuqaha2015} covers the main application and network protocols and will be the starting point for the analysis to follow.
 }
 
 \paragraph{\textbf{\ac{HTTP}}}
@@ -11,45 +11,75 @@
 
 \paragraph{\textbf{\ac{CoAP}}}
 \paragraph{
-	\ac{CoAP} is a document transfer protocol based on \ac{REST} on top of \ac{HTTP} functionalities. \ac{CoAP} objective is to enable tiny constrained devices to use RESTful interactions, where clients and servers expose and consume web services using \ac{URIs} together with  \ac{HTTP} get, post, put and delete methods. Unlike \ac{REST}, \ac{CoAP} runs over \ac{UDP} instead of \ac{TCP} which makes it suitable for full IP networking in small micro-controllers. Retries and reordering are implemented at the application stack using a messaging sub-layer that detects duplicated messages and provides reliable communication using different types of messages. Confirmable messages must be acknowledged by the receiver, nonconfirmable one are fire and forget. While being a lightweight protocol, \ac{CoAP} still provides important features: (não consigo meter um itemize aqui... pls help...)
-Resource Observation - \ac{CoAP} can extend the \ac{HTTP} request model with the ability to observe a resource therefore monitoring resources of interest using a publish/subscribe mechanism.
-Resource Discovery - \ac{CoAP} servers provide a list of resources using well-known {URIs} that allow clients to discover what resources are provided and their types.
-Interoperability - since \ac{CoAP} is based on the \ac{REST} architecture, a simple proxy enables \ac{CoAP} to easily interoperate with \ac{HTTP}.
+	\ac{CoAP} is a document transfer protocol based on \ac{REST} on top of \ac{HTTP} functionalities. \ac{CoAP} objective is to enable tiny constrained devices to use RESTful interactions, where clients and servers expose and consume web services using \ac{URIs} together with  \ac{HTTP} get, post, put and delete methods. Unlike \ac{REST}, \ac{CoAP} runs over \ac{UDP} instead of \ac{TCP} which makes it suitable for full IP networking in small micro-controllers. Retries and reordering are implemented at the application stack using a messaging sub-layer that detects duplicated messages and provides reliable communication using different types of messages. Confirmable messages must be acknowledged by the receiver, nonconfirmable follow the fire and forget model. While being a lightweight protocol, \ac{CoAP} still provides important features:
+}
+\begin{itemize}
+	\item Resource Observation - \ac{CoAP} can extend the \ac{HTTP} request model with the ability to observe a resource therefore monitoring resources of interest using a publish/subscribe mechanism.\\
+	\item Resource Discovery - \ac{CoAP} servers provide a list of resources using well-known {URIs} that allow clients to discover what resources are provided and their types.\\
+	\item Interoperability - since \ac{CoAP} is based on the \ac{REST} architecture, a simple proxy enables \ac{CoAP} to easily interoperate with \ac{HTTP}.
+\end{itemize}
+
+\paragraph{
 A study that compared \ac{CoAP} and \ac{HTTP} using mobile networks concluded that there is no situation where \ac{CoAP} would consume more resources than \ac{HTTP} \cite{Savolainen2014}
 }
 
 \paragraph{\textbf{\ac{MQTT}}}
 \paragraph{
-	\ac{MQTT} is a pusblish/subscribe messagins protocol designed for lightweight \ac{M2M} communications. It employs a client/server model and consists of three components, the publisher, the subscriber and a broker.
+	\ac{MQTT} is a publish/subscribe messaging protocol designed for lightweight \ac{M2M} communications. It employs a client/server model and consists of three components, the publisher, the subscriber and a broker.
 Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chuck of data, opaque to the broker. The broker, on his side, achieves security by checking authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels:
 }
 
 \begin{itemize}
-	\item At Most Once (Fire and Forget): A message won't be acknowledged by the receiver or stored and redelivered by the sender.
-	\item At Least Once: It is guaranteed that the message will be delivered to the receiver, but more that one can reach the destination. The sender stores the message until it gets an acknowledge from the receiver.
+	\item At Most Once (Fire and Forget): A message won't be acknowledged by the receiver or stored and redelivered by the sender.\\
+	\item At Least Once: It is guaranteed that the message will be delivered to the receiver, but more that one can reach the destination. The sender stores the message until it gets an acknowledge from the receiver.\\
 	\item Exactly Once: A four-way handshake mechanism is used to guarantee that the message will be received exactly once by the counterpart.
 \end{itemize}
 
-\paragraph{\ac{MQTT} has support for persistence messages stored on the broker, where the most recent message will be sent to a client that subscribes that topic. Clients can register a custom message to be sent to the broker on disconnect enabling other subscribers to know when a device disconnects. \ac{MQTT} runs on \ac{TCP} which in some cases causes drawbacks in performace. A performace evaluation of \ac{MQTT} and \ac{CoAP} \cite{Ma2014} provides comparisons on several protocol facets:
+\paragraph{\ac{MQTT} has support for persistence messages stored on the broker, where the most recent message will be sent to a client that subscribes that topic. Clients can register a custom message to be sent to the broker on disconnect enabling other subscribers to know when a device disconnects. \ac{MQTT} runs on \ac{TCP} which in some cases causes drawbacks in performance. A performance evaluation of \ac{MQTT} and \ac{CoAP} \cite{Ma2014} provides comparisons on several protocol facets:
 }
 
 \begin{itemize}
-	\item Influence of Packet Loss on Delay: With low values of packet loss, \ac{MQTT} experienced lower delays, but as the packet loss increased \ac{CoAP} performed better. This is due to the greater \ac{TCP} overheads involved in the retransmissions of messages when compared to \ac{UDP}.
-	\item Influence of Packet Loss on Data Transfer: \ac{CoAP} generated less data for each packet loss versus all the \ac{MQTT} \ac{QoS} levels.
+	\item Influence of Packet Loss on Delay: With low values of packet loss, \ac{MQTT} experienced lower delays, but as the packet loss increased \ac{CoAP} performed better. This is due to the greater \ac{TCP} overheads involved in the retransmissions of messages when compared to \ac{UDP}.\\
+	\item Influence of Packet Loss on Data Transfer: \ac{CoAP} generated less data for each packet loss versus all the \ac{MQTT} \ac{QoS} levels.\\
 	\item Overheads for Message Sizes: When packet loss rate is low, \ac{CoAP} generates less overhead than \ac{MQTT} for all message sizes, but as message size grows, the reverse is true. This happens because when the message size is is large, the probability that \ac{UDP} looses the message is higher than \ac{TCP} which causes \ac{CoAP} to retransmit the whole message more often than \ac{MQTT}.
 \end{itemize}
 
 \paragraph{
-	
-	referir que foi desenvolvido o \ac{MQTT-SN} \cite{Ibm2013} especifico para sensor networks \ac{DTLS} \ac{TLS}
+	In order to address the drawbacks on constrained devices, \ac{MQTT-SN} protocol\cite{Ibm2013} was created. Among the improvements and new features, \ac{MQTT-SN} runs on UDP, adds broker support for indexing topic names, provides a discovery procedure to help clients without a pre-configured server address and supports devices in sleep state. With this approach, an extra gateway is necessary convert from \ac{MQTT-SN} to \ac{MQTT} so the communications can be understand by the broker.
 }
 
-\paragraph{mais coisas aqui}
 
-\begin{table}[ht]
+\subsection{Security Overview and Protocol Improvements}
+
+\paragraph{
+	So far security issues have not been address in any of the studied protocols. This is because all of them rely on underneath layers to achieve secure communications. The following protocols work on top of the transport layer and aim to provide authentication, confidentiality and message integrity.
+}
+
+\paragraph{\textbf{\ac{TLS}}}
+\paragraph{
+	\ac{TLS} is a well-known security protocol that is used to provide secure transport layer for \ac{TCP} communications, allowing the upper layer protocols to be left untouched. \ac{TLS} operation consists of two phases: the handshake and then the data encryption. During the handshake, both parties negotiate which algorithms will be used during the session, authenticate themselves, and prepare the shared secret for the data encryption.
+	Both \ac{HTTP} and \ac{MQTT} work over \ac{TCP} and use \ac{TLS} as the adopted security protocol.
+}
+
+\paragraph{\textbf{\ac{DTLS}}}
+\paragraph{
+	\ac{DTLS} aims to be the equivalent of \ac{TLS} over \ac{UDP} transport layer. \ac{DTLS} works over datagrams that can be lost, duplicated, or received in the wrong order, therefore needing some extra mechanisms to cope with that. Although both \ac{CoAP} and ac{MQTT-SN} work over \ac{UDP} and use \ac{DTLS} as the adopted security, some authors argue that \ac{DTLS} is not a suitable option \cite{Alghamdi2013} and defend the need of a new integrated security solution. Some of the presented drawbacks are:
+}
+
+\begin{itemize}
+	\item There is no multicast support, which is a key feature in \ac{IoT}
+	\item Handshake phase is prone to exhaustion attacks on the device resources
+	\item The loss of a message in-flight requires the retransmission of all the messages in-flight
+\end{itemize}
+
+\paragraph{
+	A final overview of the analysed protocols and security solutions is given in Table \ref{tab:protocols}. And a comparison of the protocol stack is shown in Table \ref{tab:stack}.
+} 
+
+
+\begin{table}[h]
 	\centering
 	\begin{center} \caption{\ac{IoT} Application Protocols Comparison} \end{center}
-	\label{tab:protocols}
 	\begin{tabular}{c|cccccc}
 		\begin{turn}{90}\begin{tabular}{@{}c@{}}Application \\ Protocol\end{tabular}\end{turn} &
 		\begin{turn}{90}\begin{tabular}{@{}c@{}}Publish/ \\ Subscribe\end{tabular}\end{turn} &
@@ -69,6 +99,7 @@ Subscribers register their interest for a specific topic and then get informed b
 		%\hline
 		\ac{MQTT-SN} & \cmark & \xmark & \xmark & \cmark & \ac{UDP} & \ac{DTLS}
 	\end{tabular}
+	\label{tab:protocols}
 \end{table}
 
 \begin{table}[h]
@@ -84,24 +115,6 @@ Subscribers register their interest for a specific topic and then get informed b
 		IPv6 & 6LoWPAN 
 	\end{tabular}
 \end{table}
-
-
-\paragraph{
-	$\rightarrow$ colocar aqui o desenho bonito das layers web vs layers IoT $\leftarrow$
-}
-
-\subsection{Security and Improvements}
-
-\paragraph{\textbf{\ac{TLS}}}
-\paragraph{
-	This is the resume about TLS afoebfoewufbewoçubewfwefwfe
-}
-
-\paragraph{\textbf{\ac{DTLS}}}
-\paragraph{
-	This is the resume about DTLS
-	paper que diz mal do \ac{DTLS} \cite{Alghamdi2013} e diz que outra solução é necessária
-}
 
 \subsection{Attack Analysis, Detection and Prevention}
 
