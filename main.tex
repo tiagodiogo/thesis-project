@@ -8,6 +8,13 @@
 %
 \documentclass{llncs}
 
+% make a proper TOC despite llncs
+\setcounter{tocdepth}{2}
+\makeatletter
+\renewcommand*\l@author[2]{}
+\renewcommand*\l@title[2]{}
+\makeatletter
+
 \usepackage[utf8]{inputenc}
 \usepackage[nolist,nohyperlinks]{acronym}
 \usepackage[stable]{footmisc}
@@ -19,12 +26,13 @@
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
 \setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 \setlength{\arrayrulewidth}{0.2pt}%.4pt
 {\renewcommand{\arraystretch}{1.2}
 
 \begin{document}
 
-\title{Power-Aware Security Protocols for the Internet of Things}
+\title{Power-Aware Security Protocols\\ for the Internet of Things}
 %
 \titlerunning{}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
@@ -42,6 +50,13 @@
 
 \maketitle              % typeset the title of the contribution
 
+\begin{abstract}
+le pretty abstact...
+\keywords{power-aware, security, protocols, internet of things}
+\end{abstract}
+
+\tableofcontents
+\newpage
 
 \section{Introduction}
 \input{sections/introduction}
