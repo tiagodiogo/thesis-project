@@ -135,25 +135,74 @@ So far security issues have not been address in any of the previous layers, this
 	\end{tabular}
 \end{table}
 
-\subsection{Attack Analysis, Detection and Prevention}
+\subsection{Attack Analysis, Detection and Mitigation}
 \paragraph{}
 Exploitation of existing solutions in the forms of malicious attacks can be found at all the studied OSI layers. They can go from the well-known \ac{DoS} at the application layer to a physical intruder replacing some node on a sensor field. However, given the characteristics of the devices and networks used in \ac{IoT} combined with the power consumption focus of this work, a specific kind of attacks performed at the network layer is of special interest and importance:
 
 \paragraph{\textbf{Battery Depletion Attacks aka Vampire Attacks}}
 \paragraph{}
-//pequeno resumo do que são este tipo de ataques
-
-\paragraph{este paper mostra ataques de routing sem mencionar protocolos em especifico: \cite{Vasserman2013,Vanitha2014}}
-\paragraph{este paper mostra ataques no protocolo de routing rpl e no 6lowpan em especifico: \cite{Pongle2015}}
+Battery Depletion Attacks aim at draining the battery, "life", of the network devices, working over time to entirely disable a network, hence being called Vampire Attacks. These attacks do not focus on flooding the network with many packages, instead they drain the node's life by delaying the packets transmission. Many of the existing attacks are not protocol specific \cite{Vasserman2013}, while others target specific protocols and implementations \cite{Pongle2015}. The following attacks aim at giving an overview of the existing attack possibilities on different routing solutions as well as existing mitigation strategies. Additionally, a range of attacks that target the RPL routing protocol is also analysed. Since RPL is the selected protocol of our energy efficient stack, it is of special importance to consider and assure the mitigation of attacks that would drain the devices batteries by exploiting this light weight protocol inner workings.   
 
 \subsubsection{Stateless Protocols}
+\paragraph{}
+In systems that use this type of routing protocols, the source node specifies the entire route to the destination in the packet header. This means that intermediaries do not make decisions regarding the next hop, they only forward to the next node as specified in the original path therefore reducing the amount of computation performed and used energy. However, the source node must ensure that the route is valid at the time of sending and that the neighbour relations among the devices allow the specified forwarding path. Using this transmission scheme, a malicious device can specify paths through the network that are far from optimal, wasting energy at the intermediate nodes who follow the included malicious source route. A couple examples of these attacks are the Carousel and Stretch Attacks.
 
 \paragraph{\textbf{Carousel Attack}}
+\paragraph{}
+The objective of this attack is to send a packet along a route composed as a series of loops. This way a single node may forward the malicious packet several times increasing the total energy consumption by a factor of the number of loops the attacker has introduced on the packet header path. It targets source routing protocols by exploiting the limited verification of the packets headers at the intermediary nodes. Figure \ref{fig:carousel_attack} shows an example where a vampire node created a path composed of circles around the network when it could exit after the first hop through the D node.
+ 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/Carousel_Attack.png}
+  \caption{Carousel Attack}
+  \label{fig:carousel_attack}
+\end{figure}
+
+Existing mitigations strategies rely on checking the source route for loops on intermediary nodes, either selecting an appropriate route for the packet or simply dropping it.
 
 \paragraph{\textbf{Stretch Attack}}
+\paragraph{}
+The objective of this attack is to create a longer source route around the network than the one who would be required to transverse the network from the source to the sink. The number of elements in the path would be greater than the optimal path, therefore increasing the total energy consumption by a factor of the number of additional hops. It's success rests on intermediary nodes not checking for better paths. Figure \ref{fig:stretch_attack} shows an example where a vampire node created a path that goes through a greater number of nodes than required to reach the sink.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/Stretch_Attack.png}
+  \caption{Stretch Attack}
+  \label{fig:stretch_attack}
+\end{figure}
+
+A limited way of mitigating this attack would be to ensure that path routes have less than the total number on devices on the network. Vasserman and Hoper proposed a property called "no-backtracking" that assures the packet is always moving closer to the sink on every hop. \cite{Vasserman2013}
 
 \subsubsection{Stateful Protocols}
+\paragraph{}
+In systems that use this type of routing protocols, network nodes are aware of the network topology and it's state, being able to make local decisions on the node to whom they will forward the packet. The effect of the Vampires on this type of routing is limited since the route is built dynamically from many independent forwarding decisions. However, attackers can still cause damage by forcing packet forwarding through nodes that would not be on the optimal path, for example by forwarding the packet back to the source. A couple examples of these attacks are the Directional Antenna and Wormhole Attacks.
 
 \paragraph{\textbf{Directional Antenna Attack}}
+\paragraph{}
+In this attack, the attacker takes the role of an intermediary and not the source of a packet. If the attacker has the resources to use a directional antenna, it can deposit a packet on arbitrary parts of the network while also forwarding the packet locally. This causes nodes that were not on the optimal path to also consume energy by forwarding a packet they would not normally receive, therefore increasing the total energy consumption by a factor of the directions the attacker can position the antenna and the distance between the receiver and the sink. Figure \ref{fig:directional_antenna_attack} shows an example where a vampire intermediary deposited a node on a distant location of the network, causing the packet to follow 2 different routes towards it's destination
 
-\paragraph{\textbf{Malicious Discovery Attack}}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/Directional_Antenna_Attack.png}
+  \caption{Directional Antenna Attack}
+  \label{fig:directional_antenna_attack}
+\end{figure}
+
+A mitigation strategy could be to analyse the route paths of a given packet that reached the sink more that one time. The last node identifier to appear duplicated before the path started to diverge would be one who then directed the packet to multiple regions, the attacker.
+
+\paragraph{\textbf{Wormhole Attack}}
+\paragraph{}
+
+\subsubsection{RPL Specific Attacks}
+
+\paragraph{\textbf{Hello Flooding}}
+
+\paragraph{\textbf{Selective Forwarding}}
+
+não sei onde meter, mas tem de aparecer aqui o clone attack...
+
+
+\subsection{Secure Bootstrapping}
+\paragraph{}
+dizer o que é, de que forma se relaciona, que problemas resolve e um paragrafo com titulo a bold por cada forma que pode resolver o problema
+
