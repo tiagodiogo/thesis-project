@@ -1,7 +1,7 @@
 \subsection{Protocol Analysis and Selection}
 
 \paragraph{}
-There are many alternatives and some proposed standards when it comes to choosing a protocol stack for \ac{IoT} communications. The decision must be based on the particularities of the devices to be used and the objective of the application itself, however a thoroughly analysis of the existing solutions is a proper way to unveil the strong and weak points of each protocol providing a good basis for an informed decision. A recent survey (January 2015) \cite{Al-Fuqaha2015} of the \ac{IoT} enabling technologies, protocols and applications will be the starting point for the analysis to follow. The presentation of the available protocols and solutions will follow a bottom-up approach, starting from the data link and physical layer all the way up until the application layer. In particular, the session layer will be left to the end since securing the channel is optional and will be addressed after the application level protocols are properly examined.
+There are many alternatives and some proposed standards when it comes to choosing a protocol stack for \ac{IoT} communications. The decision must be based on the particularities of the devices to be used and the objective of the application itself, however a thoroughly analysis of the existing solutions is a proper way to unveil the strong and weak points of each protocol providing a good basis for an informed decision. A recent survey (January 2015) \cite{Al-Fuqaha2015} of the \ac{IoT} enabling technologies, protocols and applications will be the starting point for the analysis to follow. The presentation of the available protocols and solutions will follow a bottom-up approach, starting from the data link and physical layer all the way up until the application layer. In particular, the session layer will be left to the end since securing the channel is an optional feature and will be addressed after the application level protocols are properly examined.
 
 \subsubsection{Data Link and Physical Layer}
 
@@ -29,7 +29,14 @@ IEEE 802.15.4 on the other hand was created for \ac{LR-WPAN} and its specificati
 	
 \paragraph{\textbf{RPL}}
 \paragraph{}
-With the use of 6LoWPAN, upper layer routing protocols can now use the IPv6 addressing scheme. Given the possible frequent topology changes associated with the radio-link instability, successful  solutions must take these requirements into account on their specification. RPL can support a wide variety of link-layers and is prepared for devices with very limited resources. It is able to build up network routes, distribute routing knowledge among nodes and adapt the topology in a very efficient way.
+With the use of 6LoWPAN, upper layer routing protocols can now use the IPv6 addressing scheme. Given the possible frequent topology changes associated with the radio-link instability, successful  solutions must take these requirements into account on their specification. RPL can support a wide variety of link-layers and is prepared for devices with very limited resources. It is able to build up network routes, distribute routing knowledge among nodes and adapt the topology in a very efficient way. More in depth, RPL creates a \ac{DODAG} between the 6LoWPAN network nodes (Figure \ref{fig:rpl_dodag}) that supports unidirectional traffic towards the \ac{DODAG} root and bidirectional traffic between devices. Each node has a rank that indicates it's position relative to other nodes and with respect to the root. This rank is used to create optimized network paths. In order to allow packets to propagate downwards the the topology, either source routing or stateful routing tables are used. (More Information on this two types of routing are given in sections \ref{sec:source_routing} and \ref{sec:tables_routing}). For both modes, the \ac{DODAG} root always maintains a complete list of the network nodes. RPL provides a set of control messages in order to exchange routing graph information. \ac{DIO} are used to advertise information needed to build the \ac{DODAG}. \ac{DAO}  are used to advertise information so that downwards traffic can go through the nodes towards the leafs. Nodes may also resort to \ac{DIS} messages to request graph information from neighbour nodes. Finally, RPL has a built in topology repair mechanism that acts in the case of a routing topology failure, link failure or node failure. In the case the topology needs to be rebuilt, a link layer metric is used to calculate the new route. The new path is considered fit for work if the link layer acknowledgements are received on it.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/RPL_DODAG.png}
+  \caption{A Sample RPL DODAG}
+  \label{fig:rpl_dodag}
+\end{figure}
 
 \subsubsection{Application Layer}
 
@@ -144,6 +151,7 @@ Exploitation of existing solutions in the forms of malicious attacks can be foun
 Battery Depletion Attacks aim at draining the battery, "life", of the network devices, working over time to entirely disable a network, hence being called Vampire Attacks. These attacks do not focus on flooding the network with many packages, instead they drain the node's life by delaying the packets transmission. Many of the existing attacks are not protocol specific \cite{Vasserman2013}, while others target specific protocols and implementations \cite{Pongle2015}. The following attacks aim at giving an overview of the existing attack possibilities on different routing solutions as well as existing mitigation strategies. Additionally, a range of attacks that target the RPL routing protocol is also analysed. Since RPL is the selected protocol of our energy efficient stack, it is of special importance to consider and assure the mitigation of attacks that would drain the devices batteries by exploiting this light weight protocol inner workings.   
 
 \subsubsection{Stateless Protocols}
+\label{sec:source_routing}
 \paragraph{}
 In systems that use this type of routing protocols, the source node specifies the entire route to the destination in the packet header. This means that intermediaries do not make decisions regarding the next hop, they only forward to the next node as specified in the original path therefore reducing the amount of computation performed and used energy. However, the source node must ensure that the route is valid at the time of sending and that the neighbour relations among the devices allow the specified forwarding path. Using this transmission scheme, a malicious device can specify paths through the network that are far from optimal, wasting energy at the intermediate nodes who follow the included malicious source route. A couple examples of these attacks are the Carousel and Stretch Attacks.
 
@@ -174,6 +182,7 @@ The objective of this attack is to create a longer source route around the netwo
 A limited way of mitigating this attack would be to ensure that path routes have less than the total number on devices on the network. Vasserman and Hoper proposed a property called "no-backtracking" that assures the packet is always moving closer to the sink on every hop. \cite{Vasserman2013}
 
 \subsubsection{Stateful Protocols}
+\label{sec:tables_routing}
 \paragraph{}
 In systems that use this type of routing protocols, network nodes are aware of the network topology and it's state, being able to make local decisions on the node to whom they will forward the packet. The effect of the Vampires on this type of routing is limited since the route is built dynamically from many independent forwarding decisions. However, attackers can still cause damage by forcing packet forwarding through nodes that would not be on the optimal path, for example by forwarding the packet back to the source. A couple examples of these attacks are the Directional Antenna and Wormhole Attacks.
 
