@@ -1,4 +1,5 @@
 \subsection{Protocol Analysis and Selection}
+\label{sec:protocol_analysis}
 
 \paragraph{}
 There are many alternatives and some proposed standards when it comes to choosing a protocol stack for \ac{IoT} communications. The decision must be based on the particularities of the devices to be used and the objective of the application itself, however a thoroughly analysis of the existing solutions is a proper way to unveil the strong and weak points of each protocol providing a good basis for an informed decision. A recent survey (January 2015) \cite{Al-Fuqaha2015} of the \ac{IoT} enabling technologies, protocols and applications will be the starting point for the analysis to follow. The presentation of the available protocols and solutions will follow a bottom-up approach, starting from the data link and physical layer all the way up until the application layer. In particular, the session layer will be left to the end since securing the channel is an optional feature and will be addressed after the application level protocols are properly examined.
@@ -60,7 +61,7 @@ A study that compared \ac{CoAP} and \ac{HTTP} using mobile networks concluded th
 \paragraph{\textbf{\ac{MQTT}}}
 \paragraph{}
 	\ac{MQTT} is a publish/subscribe messaging protocol designed for lightweight \ac{M2M} communications. It employs a client/server model and consists of three components, the publisher, the subscriber and a broker.
-Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chunck of data, opaque to the broker. The broker, on is side, checks authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels:
+Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chunk of data, opaque to the broker. The broker, on is side, checks authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels:
 
 \begin{itemize}
 	\item At Most Once (Fire and Forget): A message will not be acknowledged by the receiver or stored and redelivered by the sender.\\
@@ -143,6 +144,7 @@ So far security issues have not been address in any of the previous layers, this
 \end{table}
 
 \subsection{Attack Analysis, Detection and Mitigation}
+\label{sec:attack_analysis}
 \paragraph{}
 Exploitation of existing solutions in the forms of malicious attacks can be found at all the studied OSI layers. They can go from the well-known \ac{DoS} at the application layer to a physical intruder replacing some node on a sensor field. However, given the characteristics of the devices and networks used in \ac{IoT} combined with the power consumption focus of this work, a specific kind of attacks performed at the network layer is of special interest and importance:
 
@@ -201,17 +203,70 @@ A mitigation strategy could be to analyse the route paths of a given packet that
 
 \paragraph{\textbf{Wormhole Attack}}
 \paragraph{}
+This attack can be seen as variation of the Directional Antenna Attack but with the collaboration of two or more attackers. Instead of simply forwarding the packets to arbitrary parts of the network, the attacker emulates a link between them and advertise to the network that recently formed connection. This disrupts the topology and has severe impact on routing paths since attackers can indicate that the link cost between them is very low therefore influence the forwarding decisions of neighbour nodes. By using these malicious routes, the energy consumption is increased because either this channel doesn't exist at all (packets are dropped and need to be resent), or the transmission cost between the attackers is greater than the normal message propagation through the network. Figure \ref{fig:wormhole_attack} shows an example where two vampires emulate a connection between them influencing the routing decisions of their neighbours.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/Wormhole_attack.png}
+  \caption{Wormhole Attack}
+  \label{fig:wormhole_attack}
+\end{figure} 
+
+Wormhole attacks can be prevented using the Markle tree authentication. This tree is organized from the leafs towards the root where every parent knows their children and asks them for authentication based on their ID and public key.
 
 \subsubsection{RPL Specific Attacks}
+\paragraph{} 
 
-\paragraph{\textbf{Hello Flooding}}
 
-\paragraph{\textbf{Selective Forwarding}}
+\paragraph{\textbf{Selective Forwarding Attack}}
+\paragraph{}
+In a selective forwarding attack, a malicious node can launch a \ac{DoS} attack by selectively forwarding packets. It's main goal is to disrupt routing paths but can be used to filter any protocol. For sustainability an attacker could let the RPL control messages pass by and drop the remaining packets. Depending on the routing scheme being used (source routing or stateful tables) the source could first verify path availability or each node could dynamically decide to forward the packet through another path with similar quality. In any case a good approach would be to report those failures to the underlying RPL system in order to improve the path quality.
 
-não sei onde meter, mas tem de aparecer aqui o clone attack...
+\paragraph{\textbf{Hello Flooding Attack}}
+\paragraph{}
+The Hello in the name of this attack comes from the initial message a node send when joining a network. By broadcasting this message with a strong signal power, an attacker can try to introduce himself as neighbour to many nodes of the network, or at least force a large portion of the network so spend energy starting the message exchange for node insertion. A simple solution for this attack would be to test the bi-directionality of the link. If no acknowledgement is received, the path is discarded. Another approach, if geographical locations of the nodes are known, would be to discard every hello message coming from a location beyond the transmission capabilities of ordinary nodes.
 
+\subsubsection{Protocol Independent}
+\paragraph{}
+The last addressed category is not dependant on network topologies or protocol messages. It focuses on attacks that can be performed regardless of the used protocol and whose goal it to obtain information about a network device. With that information an attacker can, for example, try to include himself in the network as a legitimate device or spoof his identity to forward traffic towards him. A couple examples of these attacks are the Clone and Sybil Attacks.
+
+\paragraph{\textbf{Clone ID and Sybil Attack}}
+\paragraph{}
+As the name suggests, in a clone ID attack, the attacker steals the identity of a legitimate network node by copying the information of that node onto another node. This way the attacker can gain access to the traffic that was destined to the legitimate node, prevent packets to reach their intended destination and even influence voting schemes. The Sybil attack is similar to the Clone ID, with the difference that the attacker uses several stolen identities on the same physical node. This way, large parts of a network can be taken over without the need to deploy several physical nodes. Figure \ref{fig:clone_attack} shows an example of a clone ID attack where the cloned attacker received the packet that was originally destined to the legitimate node.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\linewidth]{figures/Clone_attack.png}
+  \caption{Clone ID Attack}
+  \label{fig:clone_attack}
+\end{figure} 
+
+Proposed mitigation strategies for this type of attacks consist on keeping track of the number of instances of each identity. By using the node neighbours, either a centralized or distributed approach could be used to detect duplicate entries.
 
 \subsection{Secure Bootstrapping}
+\label{sec:secure_bootstrapping}
 \paragraph{}
-dizer o que é, de que forma se relaciona, que problemas resolve e um paragrafo com titulo a bold por cada forma que pode resolver o problema
+The term bootstrapping is applied to the process in which a new device is connected to an existing network. To achieve a secure bootstrapping, a unique identity and security parameters are associated with the device during this phase. There are several ways to carry out the initial setup, either via a physical interface or wirelessly. In the case of wireless bootstrapping, attention must be given to eavesdropping so that the secure credentials cannot be intercepted.\\
+Since many of the studied attacks are to be performed by a malicious intruder capable of interacting with the network, if we could assure a secure bootstrapping, meaning that the new node would be authenticated before becoming an active member of the network, a large portion of those attacks could no longer be performed. The following bootstrapping techniques were summarized in \cite{Fischer2012} and aim at providing secure bootstrapping for \ac{IoT} devices.
 
+\subsubsection{Token Based}
+\paragraph{}
+In token based distribution, device specific security credentials are generated and written to a token. That token can range from memory sticks or flash cards to \ac{RFID} tags or smartcards. Is has the advantage that this initial credential generation can be performed on a physically controlled environment and only later, on the commissioning phase, is the token plugged into the device. After the successful insertion of the security credentials, the token can be removed and collected back into the secure environment. This process can be considered of high security since the credentials are generated on a closed environment and are transmitted through a physical link. To further increase the security level, a password could be used to encrypt the credentials, however that would require the device to have some kind of interface that to insert the password. If the case of large number of devices, this approach would be unsuitable due to the management effort of manually deploying the tokens to the devices \cite{Fischer2012}.
+
+\subsubsection{Identifier Based Access Control List}
+\paragraph{}
+With an identifier based \ac{ACL}, new devices are allowed or denied access to the network based on their unique ID. A commonly used identifier is the MAC address. This has some major drawbacks in security since, firstly, provides no assurances on the first time the device connects to the network. An attacker can easily intercept the first messages and get access to the device information. And secondly, after the bootstrapping phase, MAC addresses can be spoofed by an attacker, allowing him access to the network by bypassing the \ac{ACL} with the identifier of a legitimate node.
+
+\subsubsection{One Time Passwords}
+\paragraph{}
+The use of one time passwords enhances the manual input of credentials on the device to be bootstrapped. The person responsible for the deploy of the new node should receive through a secure channel an one time password, that would then use to authenticate the node. This one time password could be used to authenticate locally generated key material (either certificate requests or generated key pair) towards the management station or root node. The achieved security level is proportional to the security of the channel used to obtain the one time password, but assuming that channel is secure so is this method. The drawback is that it forces devices to possess some kind of interface to insert the one time password.
+
+\subsubsection{Manufacturer Installed Credentials}
+\paragraph{}
+So far, excluding the identifier based access control list, the intent of the studied techniques is to supply to the new device the security credentials needed to obtain access to the network, or at least provide an authentication method that allows fetching those credentials. In manufacturer installed credentials, those security credentials are deployed during the manufacturing process of the device vendor. Those credentials are typically a public/private key pair certificate bound to the identifier of the device. This certificate can be integrated into the initial load of the firmware or stored in a separate integrated circuit designed for credential storing. In the second case, this method security can be considered very high since those integrated circuits assure that the private key cannot be read from memory. This way, the new device comes shipped with the necessary security credentials not only for the bootstrapping phase but also for the normal operation phase since it does not need to fetch any additional credentials. The effort is on the root or management station that needs to import the vendor CA certificates to assure the new device credentials are trustworthy. Also the production costs increase implying an increased device cost.
+
+\subsubsection{Proposed Solutions}
+\paragraph{}
+Secure bootstrapping and network admission solutions have already been proposed in past literature. However, the development and optimization of application layer protocols as well as network layer routing schemes allows for new approaches and solutions that can now fit the in the nature of \ac{IoT} devices.
+Bergman et al. \cite{Bergmann2012} proposed a three-phase secure bootstrapping technique for nodes in a \ac{CoAP} network. Firstly the joining node broadcasts a request for a \ac{CSDS}, this server, once contacted by a new node takes the responsibility of key distribution. Then the system goes under a vulnerable phase where the secret is transmitted from the \ac{CSDS} onto the new device. The author propose short audible or visual feedback to the human installer when the secret is received and assume that potential eavesdroppers can not intercept this transmission. Finally, this secret is used to setup de \ac{DTLS} connection. This approach has major security drawbacks on the secret transmission phase, the authors propose limiting the radio power to a low level and disable data forwarding beyond the local network segment, but this techniques cannot assure that an attacker wont be able to intercept the transmission.\\
+Oliveira et al. \cite{Oliveira2013} proposed an admission control solution for 6LoWPAN networks based on administrative approval. Each joining node would broadcast it's presence to the network, and that broadcast would be received by the administrator in the management server. Then, the administrator would grant access to that new device based on its address, and that information would be transmitted to all the devices in the network. After this phase, the device would be allowed communication as a regular member of the network by it's neighbours. This approach has the advantage of requiring no previous setup on the device before operation but is vulnerable to the attacks previously mentioned in identifier based \ac{ACL}. The authors state that work still needs to be performed in order to validate the sensor identity and leave as possibility the pre-instalment of keys on the device. 
