@@ -26,7 +26,7 @@ IEEE 802.15.4 on the other hand was created for \ac{LR-WPAN} and its specificati
 
 \paragraph{\textbf{6LoWPAN}}
 \paragraph{}
-	The \ac{IoT} vision, as presented in the introduction, and its massive deployment can only be achieved through the use of IPv6. However, physical layers more suitable for communication over constrained networks pose some limitations to the use of the IPv6 messages. For example the limited packet size in IEEE 802.15.4 based networks. To tackle these issues, the \ac{IETF} 6LoWPAN working group developed a standard based on header compression to reduce the transmission overhead, fragmentation to meet the IPv6 \ac{MTU} requirements and forwarding to link-layer to support multi-hop delivery. \cite{Hui2008}
+	The \ac{IoT} vision and its massive deployment can only be achieved through the use of IPv6. However, physical layers more suitable for communication over constrained networks pose some limitations to the use of the IPv6 messages. For example the limited packet size in IEEE 802.15.4 based networks. To tackle these issues, the \ac{IETF} 6LoWPAN working group developed a standard based on header compression to reduce the transmission overhead, fragmentation to meet the IPv6 \ac{MTU} requirements and forwarding to link-layer to support multi-hop delivery. \cite{Hui2008}
 	6LoWPAN is able to remove a major share of IPv6 overheads, being able to compress its headers to two bytes, therefore allowing small IPv6 datagrams to be sent over IEEE 802.15.4 networks. 
 	
 \paragraph{\textbf{RPL}}
@@ -57,12 +57,12 @@ With the use of 6LoWPAN, upper layer routing protocols can now use the IPv6 addr
 \end{itemize}
 
 \paragraph{}
-A study that compared \ac{CoAP} and \ac{HTTP} using mobile networks concluded that there is no situation where \ac{CoAP} would consume more resources than \ac{HTTP} \cite{Savolainen2014}
+A study that compared \ac{CoAP} and \ac{HTTP} using mobile networks concluded that there is no scenario where \ac{CoAP} would consume more resources than \ac{HTTP} \cite{Savolainen2014}
 
 \paragraph{\textbf{\ac{MQTT}}}
 \paragraph{}
 	\ac{MQTT} is a publish/subscribe messaging protocol designed for lightweight \ac{M2M} communications. It employs a client/server model and consists of three components, the publisher, the subscriber and a broker.
-Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chunk of data, opaque to the broker. The broker, on is side, checks authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels:
+Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chunk of data, opaque to the broker. The broker, on its side, checks authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels:
 
 \begin{itemize}
 	\item At Most Once (Fire and Forget): A message will not be acknowledged by the receiver or stored and redelivered by the sender.\\
