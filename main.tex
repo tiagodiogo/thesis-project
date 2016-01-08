@@ -22,6 +22,8 @@
 \usepackage{rotating}
 \usepackage{pifont}
 \usepackage{placeins}
+\usepackage{fancyhdr}
+\usepackage{subfig}
 
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
@@ -29,6 +31,12 @@
 \setcounter{tocdepth}{3}
 \setlength{\arrayrulewidth}{0.2pt}%.4pt
 {\renewcommand{\arraystretch}{1.2}
+\pagestyle{plain}
+\setcounter{page}{1}
+\pagenumbering{arabic}
+\fancyhf{}
+\fancyfoot[R]{\thepage}
+\captionsetup{belowskip=12pt,aboveskip=4pt}
 
 \begin{document}
 
@@ -51,8 +59,8 @@
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-The \ac{IoT} and its vision of connecting every device to one another presents an opportunity to create large information sharing networks. However, intruders can take advantage of the \ac{IoT} devices constrained nature to disrupt the networks and launch a wide range of attacks on its nodes. In our work we address this issue from a power-aware perspective, trying to find the best relation between security and power consumption. To achieve this objective we do a thoroughly analysis of the existing protocols, attacks and mitigation strategies, combining that information into our proposed network management system based on a Smart Campus architecture. Furthermore, we will perform energy consumption profiling to endow future users with the knowledge of what kind of physical resources to deploy based on the desired application security level.
-\keywords{Internet of Things, Power-Aware, Security, Bootstrapping, CoAP, MQTT, 6LoWPAN, RPL, IEEE 802.15.4}
+The \ac{IoT} and its vision of connecting every device to one another presents an opportunity to create large information sharing networks. However, intruders can take advantage of the \ac{IoT} devices constrained nature to disrupt the networks and launch a wide range of attacks on its nodes. In our work we address this issue from a power-aware perspective, trying to find the best relation between security and power consumption. To achieve this objective we do a thoroughly analysis of the existing protocols, attacks and mitigation strategies, combining that information into our proposed network management system to be evaluated on a Smart Campus scenario. Furthermore, we will perform energy consumption profiling to endow future users with the knowledge of what kind of physical resources to deploy, based on the desired application security level.
+\keywords{Internet of Things, Power-Aware Security, Secure Bootstrapping, CoAP, MQTT, 6LoWPAN, RPL, IEEE 802.15.4}
 \end{abstract}
 
 \tableofcontents
@@ -60,12 +68,6 @@ The \ac{IoT} and its vision of connecting every device to one another presents a
 
 \section{Introduction}
 \input{sections/introduction}
-
-\section{Main Goals}
-\input{sections/main-goals}
-
-\section{Document Roadmap}
-\input{sections/roadmap}
 
 \section{Related Work}
 \label{sec:related_work}
@@ -125,4 +127,7 @@ The \ac{IoT} and its vision of connecting every device to one another presents a
 \acrodef{ACL}{Access Control List}
 \acrodef{CSDS}{\ac{CoAP} Service Discovery Server}
 \acrodef{IST}{Instituto Superior Técnico}
+\acrodef{6LoWPAN}{IPv6 over Low power Wireless Personal Area Networks}
+\acrodef{RPL}{Routing Protocol for Low-Power and Lossy Networks}
+\acrodef{CA}{Certificate Authority}
 \end{document}

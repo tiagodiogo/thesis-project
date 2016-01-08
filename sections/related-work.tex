@@ -2,41 +2,41 @@
 \label{sec:protocol_analysis}
 
 \paragraph{}
-There are many alternatives and some proposed standards when it comes to choosing a protocol stack for \ac{IoT} communications. The decision must be based on the particularities of the devices to be used and the objective of the application itself, however a thoroughly analysis of the existing solutions is a proper way to unveil the strong and weak points of each protocol providing a good basis for an informed decision. A recent survey (January 2015) \cite{Al-Fuqaha2015} of the \ac{IoT} enabling technologies, protocols and applications will be the starting point for the analysis to follow. The presentation of the available protocols and solutions will follow a bottom-up approach, starting from the data link and physical layer all the way up until the application layer. In particular, the session layer will be left to the end since securing the channel is an optional feature and will be addressed after the application level protocols are properly examined.
+There are many alternatives and some proposed standards when it comes to choosing a protocol stack for \ac{IoT} communications. The decision must be based on the particularities of the devices to be used and the objective of the application itself, however a thorough analysis of the existing solutions is a proper way to unveil the strong and weak points of each protocol providing a good basis for an informed decision. A recent survey (January 2015) \cite{Al-Fuqaha2015} of \ac{IoT} enabling technologies, protocols and applications was the starting point for the analysis to follow. The presentation of the available protocols and solutions will follow a bottom-up approach, starting from the data link and physical layer all the way up until the application layer. In particular, the session layer will be left to the end since securing the channel is an optional feature and will be addressed after the application level protocols are properly examined.
 
 \subsubsection{Data Link and Physical Layer}
 
 \paragraph{}
-The first requirement for the physical layer of the \ac{IoT} is the use of wireless radios. These should aim for simplicity, low-power and low-cost communications. While wireless communication are far spread and can be found from homes to airports, the type of radio commonly used, known as Wi-Fi, uses a high amount of power causing concerns for battery life. In the next paragraphs, an overview of Wi-Fi(IEEE 802.11) is given with the objective of comparing it with the IEEE 802.15.4, a protocol that aims to address these issues.
+The first requirement for the physical layer of the \ac{IoT} is the use of wireless radios. These should aim for simplicity, low-power and low-cost communications. While wireless communication is widespread and can be found from homes to airports, the type of radio commonly used, known as Wi-Fi, uses a high amount of power causing concerns for battery life. In the next paragraphs, an overview of Wi-Fi (IEEE 802.11) is given with the objective of comparing it with the IEEE 802.15.4, a protocol that aims to address these issues.
 
 \paragraph{\textbf{IEEE 802.11}}
 \paragraph{}
-IEEE 802.11 is a set of standards for \ac{WLAN} communications. They are the basis for the so called Wi-Fi. IEEE 802.11 is concerned with Ethernet matching speed, long ranges, message forwarding and high data throughput. These concerns directly clash with the \ac{IoT} objectives and account for the added power consumption of this protocol.
+IEEE 802.11 is a set of standards for \ac{WLAN} communications. They are the basis for the so called Wi-Fi. IEEE 802.11 is concerned with high speed, long ranges, message forwarding and high data throughput. These concerns directly clash with the \ac{IoT} objectives and account for the added power consumption of this protocol.
 
 \paragraph{\textbf{IEEE 802.15.4}}
 \paragraph{}
-IEEE 802.15.4 on the other hand was created for \ac{LR-WPAN} and its specifications on low power consumption, low data rate, low cost and high message throughput make it a strong candidate for \ac{IoT} applications.
-	The IEEE 802.15.4 standard supports two types of network nodes, the \ac{FFD} that act as coordinator or normal nodes, and the \ac{RFD} that is very simple, with very constrained resources and can only communicate with coordinators. The coordinators are responsible for controlling and maintaining the network. \ac{FFD} are capable of storing a routing table in their memory and can implement a full \ac{MAC}.
+IEEE 802.15.4 on the other hand was created for \ac{LR-WPAN} and its specifications focus on low power consumption, low data rate, low cost and high message throughput make it a strong candidate for \ac{IoT} applications.
+	The IEEE 802.15.4 standard supports two types of network nodes, the \ac{FFD} that acts as coordinator or normal node, and the \ac{RFD} that is very simple, with very constrained resources and can only communicate with coordinators. The coordinators are responsible for controlling and maintaining the network. \ac{FFD} are capable of storing a routing table in their memory and can implement a full \ac{MAC}.
 	IEEE 802.15.4 supports star, peer-to-peer (mesh) and cluster-tree topologies.
-	Regarding performance, it would be unfair to directly compare the two, since IEEE 802.11 transmission power and receiver sensitivity are much greater than 802.15.4. But if we limit both to a low power level, IEEE 802.11 still outperforms IEEE 802.15.4 in terms of packet delivery ratio, throughput, latency, jitter and average energy consumption. However this comes at the cost of a far lower transmission range \cite{Transmission2011}.
-	We can conclude that for typical \ac{LR-WPAN} network requirements, IEEE 802.15.4 is better designed to address the constrained environment issues, while IEEE 802.11 would still be a suitable option if transmission range is not a problem.
+	Regarding performance, it would be unfair to directly compare the two, since IEEE 802.11 transmission power and receiver sensitivity are much greater than 802.15.4. Even if we limit both to a low power level, IEEE 802.11 still outperforms IEEE 802.15.4 in terms of packet delivery ratio, throughput, latency, jitter and average energy consumption. However this comes at the cost of a far lower transmission range \cite{Transmission2011}.
+	We can conclude that for typical \ac{LR-WPAN} network requirements, IEEE 802.15.4 is better designed to address the constrained environment issues, while IEEE 802.11 would still be a suitable option if a short transmission range is not a problem.
 
 \subsubsection{Network Layer}
 \label{sec:network_layer}
 
 \paragraph{\textbf{6LoWPAN}}
 \paragraph{}
-	The \ac{IoT} vision and its massive deployment can only be achieved through the use of IPv6. However, physical layers more suitable for communication over constrained networks pose some limitations to the use of the IPv6 messages. For example, the limited packet size in IEEE 802.15.4 based networks. To tackle these issues, the \ac{IETF} 6LoWPAN working group developed a standard based on header compression to reduce the transmission overhead, fragmentation to meet the IPv6 \ac{MTU} requirements and forwarding to link-layer to support multi-hop delivery \cite{Hui2008}.
-	6LoWPAN is able to remove a major share of IPv6 overheads, being able to compress its headers to two bytes, therefore allowing small IPv6 datagrams to be sent over IEEE 802.15.4 networks. 
+	The \ac{IoT} vision and its massive deployment can only be achieved through the use of IPv6. However, physical layers more suitable for communication over constrained networks pose some limitations to the use of the IPv6 messages. For example, the limited packet size in IEEE 802.15.4 based networks. To tackle these issues, the \ac{IETF} \ac{6LoWPAN} working group developed a standard based on header compression to reduce the transmission overhead, fragmentation to meet the IPv6 \ac{MTU} requirements and forwarding to link-layer to support multi-hop delivery \cite{Hui2008}.
+	\ac{6LoWPAN} is able to remove a major share of IPv6 overheads, being able to compress its headers to two bytes, therefore allowing small IPv6 datagrams to be sent over IEEE 802.15.4 networks. 
 	
 \paragraph{\textbf{RPL}}
 \paragraph{}
-With the use of 6LoWPAN, upper layer routing protocols can now use the IPv6 addressing scheme. Given the possible frequent topology changes associated with the radio-link instability, successful  solutions must take these requirements into account on their specification. RPL can support a wide variety of link-layers and is prepared for devices with very limited resources. It is able to build up network routes, distribute routing knowledge among nodes and adapt the topology in a very efficient way. More in depth, RPL creates a \ac{DODAG} between the 6LoWPAN network nodes (Figure \ref{fig:rpl_dodag}) that supports unidirectional traffic towards the \ac{DODAG} root and bidirectional traffic between devices. Each node has a rank that indicates its position relative to other nodes and with respect to the root. This rank is used to create optimized network paths. In order to allow packets to propagate downwards the topology, either source routing or stateful routing tables are used. (More Information on this two types of routing are given in sections \ref{sec:source_routing} and \ref{sec:tables_routing}). For both modes, the \ac{DODAG} root always maintains a complete list of the network nodes. RPL provides a set of control messages in order to exchange routing graph information. \ac{DIO} are used to advertise information needed to build the \ac{DODAG}. \ac{DAO}  are used to advertise information so that downwards traffic can go through the nodes towards the leafs. Nodes may also resort to \ac{DIS} messages to request graph information from neighbour nodes. Finally, RPL has a built in topology repair mechanism that acts in the case of a routing topology failure, link failure or node failure. In case the topology needs to be rebuilt, a link layer metric is used to calculate the new route. The new path is considered fit for work if the link layer acknowledgements are received on it.
+With the use of 6LoWPAN, upper layer routing protocols can now use the IPv6 addressing scheme. Given the possible frequent topology changes associated with the radio-link instability, successful  solutions must take these requirements into account on their specification. \ac{RPL} can support a wide variety of link-layers and is prepared for devices with very limited resources. It is able to build up network routes, distribute routing knowledge among nodes and adapt the topology in a very efficient way. More in depth, \ac{RPL} creates a \ac{DODAG} between the 6LoWPAN network nodes (Figure \ref{fig:rpl_dodag}) that supports unidirectional traffic towards the \ac{DODAG} root and bidirectional traffic between devices. Each node has a rank that indicates its position relative to other nodes and with respect to the root. This rank is used to create optimized network paths. In order to allow packets to propagate downwards in the topology, either source routing or stateful routing tables are used (More Information on this two types of routing are given in sections \ref{sec:source_routing} and \ref{sec:tables_routing}). For both modes, the \ac{DODAG} root always maintains a complete list of the network nodes. \ac{RPL} provides a set of control messages in order to exchange routing graph information. \ac{DIO} are used to advertise information needed to build the \ac{DODAG}. \ac{DAO}  are used to advertise information so that downwards traffic can go through the nodes towards the leafs. Nodes may also resort to \ac{DIS} messages to request graph information from neighbour nodes. Finally, RPL has a built in topology repair mechanism that acts in the case of a routing topology failure, link failure or node failure. In case the topology needs to be rebuilt, a link layer metric is used to calculate the new route. The new path is considered fit for work if the link layer acknowledgements are received on it.
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\linewidth]{figures/RPL_DODAG.png}
-  \caption{A Sample RPL DODAG}
+  \includegraphics[width=1.0\linewidth]{figures/RPL_DODAG.pdf}
+  \caption{A Sample RPL DODAG.}
   \label{fig:rpl_dodag}
 \end{figure}
 
@@ -44,15 +44,15 @@ With the use of 6LoWPAN, upper layer routing protocols can now use the IPv6 addr
 
 \paragraph{\textbf{\ac{HTTP}}}
 \paragraph{}
-	\ac{HTTP} is an application level protocol that works in the request-response model and is the foundation of data communication on the \ac{WWW} It is primarily designed to run over \ac{TCP} which is a problem in lossy and constrained environments due to the delivery assurances and congestion control algorithms it employs. Besides, {HTTP} is verbose, text-based, and not suited for compact message exchanges. Moreover, the header size required for a message exchange can leave too few payload space in constrained networks like the IEEE 802.15.4-based networks where the \ac{MTU} size of the protocol is 127 bytes. These protocol specifications would not raise any issues in standard \ac{WWW} communications, but when it comes to constrained environments it is clear that the protocol is not adequate to the necessities of \ac{IoT} devices and networks.
+	\ac{HTTP} is an application level protocol that uses a request-response model and is the foundation of data communication on the \ac{WWW} It is primarily designed to run over \ac{TCP} which is a problem in lossy and constrained environments due to the delivery assurances and congestion control algorithms it employs. Besides, {HTTP} is verbose, text-based, and not suited for compact message exchanges. Moreover, the header size required for a message exchange can leave too few payload space in constrained networks like the IEEE 802.15.4-based networks where the \ac{MTU} size of the protocol is 127 bytes. These protocol specifications would not raise any issues in standard \ac{WWW} communications, but when it comes to constrained environments it is clear that the protocol is not adequate to the necessities of \ac{IoT} devices and networks.
 
 \paragraph{\textbf{\ac{CoAP}}}
 \paragraph{}
-	\ac{CoAP} is a document transfer protocol based on \ac{REST} on top of \ac{HTTP} functionalities. \ac{CoAP} objective is to enable tiny constrained devices to use RESTful interactions, where clients and servers expose and consume web services using \ac{URIs} together with  \ac{HTTP} get, post, put and delete methods. Unlike \ac{REST}, \ac{CoAP} runs over \ac{UDP} instead of \ac{TCP} which makes it suitable for full IP networking in small micro-controllers. Retries and reordering are implemented at the application stack using a messaging sub-layer that detects duplicated messages and provides reliable communication using different types of messages. Confirmable messages must be acknowledged by the receiver, nonconfirmable follow the fire and forget model. While being a lightweight protocol, \ac{CoAP} still provides important features:
+	\ac{CoAP} is a document transfer protocol based on \ac{REST} on top of \ac{HTTP} functionalities. \ac{CoAP} objective is to enable tiny constrained devices to use RESTful interactions, where clients and servers expose and consume web services using \ac{URIs} together with  \ac{HTTP} Get, Post, Put and Delete methods. Unlike \ac{REST}, \ac{CoAP} runs over \ac{UDP} instead of \ac{TCP} which makes it suitable for full IP networking in small micro-controllers. Retries and reordering are implemented at the application stack using a messaging sub-layer that detects duplicated messages and provides reliable communication using different types of messages. Confirmable messages must be acknowledged by the receiver, nonconfirmable follow the fire-and-forget model. Despite being a lightweight protocol, \ac{CoAP} still provides important features:
 	
 \begin{itemize}
-	\item Resource Observation - \ac{CoAP} can extend the \ac{HTTP} request model with the ability to observe a resource therefore monitoring resources of interest using a publish/subscribe mechanism.\\
-	\item Resource Discovery - \ac{CoAP} servers provide a list of resources using well-known {URIs} that allow clients to discover what resources are provided and their types.\\
+	\item Resource Observation - \ac{CoAP} can extend the \ac{HTTP} request model with the ability to observe a resource therefore monitoring resources of interest using a publish/subscribe mechanism;\\
+	\item Resource Discovery - \ac{CoAP} servers provide a list of resources using well-known {URIs} that allow clients to discover what resources are provided and their types;\\
 	\item Interoperability - since \ac{CoAP} is based on the \ac{REST} architecture, a simple proxy enables \ac{CoAP} to easily interoperate with \ac{HTTP}.
 \end{itemize}
 
@@ -61,12 +61,12 @@ A study that compared \ac{CoAP} and \ac{HTTP} using mobile networks concluded th
 
 \paragraph{\textbf{\ac{MQTT}}}
 \paragraph{}
-	\ac{MQTT} is a publish/subscribe messaging protocol designed for lightweight \ac{M2M} communications. It employs a client/server model and consists of three components, the publisher, the subscriber and a broker.
-Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chunk of data, opaque to the broker. The broker, on its side, checks authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels:
+	\ac{MQTT} is a publish/subscribe messaging protocol designed for lightweight \ac{M2M} communications. It employs a client/server model and consists of three components: the publisher, the subscriber and a broker.
+Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chunk of data, opaque to the broker. The broker, on his side, checks authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels:
 
 \begin{itemize}
-	\item At Most Once (Fire and Forget): A message will not be acknowledged by the receiver or stored and redelivered by the sender.\\
-	\item At Least Once: It is guaranteed that the message will be delivered to the receiver, but more that one can reach the destination due to message resending. The sender stores the message until it gets an acknowledgement from the receiver.\\
+	\item At Most Once (Fire and Forget): A message will not be acknowledged by the receiver or stored and redelivered by the sender;\\
+	\item At Least Once: It is guaranteed that the message will be delivered to the receiver, but more that one copy can reach the destination due to message resending. The sender stores the message until it gets an acknowledgement from the receiver;\\
 	\item Exactly Once: A four-way handshake mechanism is used to guarantee that the message will be received exactly once by the counterpart.
 \end{itemize}
 
@@ -74,13 +74,13 @@ Subscribers register their interest for a specific topic and then get informed b
 \ac{MQTT} has support for persistent messages stored on the broker, where the most recent message will be sent to a client that subscribes that topic. Clients can register a custom message to be sent to the broker on disconnect enabling other subscribers to know when a device disconnects. \ac{MQTT} runs on \ac{TCP} which in some cases has drawbacks in performance. A performance evaluation of \ac{MQTT} and \ac{CoAP} \cite{Ma2014} provides comparisons on several protocol facets:
 
 \begin{itemize}
-	\item Influence of Packet Loss on Delay: With low values of packet loss, \ac{MQTT} experienced lower delays, but as the packet loss increased \ac{CoAP} performed better. This is due to the greater \ac{TCP} overheads involved in the retransmissions of messages when compared to \ac{UDP}.\\
-	\item Influence of Packet Loss on Data Transfer: \ac{CoAP} generated less data for each packet loss versus all the \ac{MQTT} \ac{QoS} levels.\\
+	\item Influence of Packet Loss on Delay: With low values of packet loss, \ac{MQTT} experienced lower delays, but as the packet loss increased \ac{CoAP} performed better. This is due to the greater \ac{TCP} overheads involved in the retransmissions of messages when compared to \ac{UDP};\\
+	\item Influence of Packet Loss on Data Transfer: \ac{CoAP} generated less data for each packet loss versus all the \ac{MQTT} \ac{QoS} levels;\\
 	\item Overheads for Message Sizes: When packet loss rate is low, \ac{CoAP} generates less overhead than \ac{MQTT} for all message sizes, but as message size grows, the reverse is true. This happens because when the message size is is large, the probability that \ac{UDP} loses the message is higher than \ac{TCP} which causes \ac{CoAP} to retransmit the whole message more often than \ac{MQTT}.
 \end{itemize}
 
 \paragraph{}
-	In order to address the drawbacks on constrained devices, \ac{MQTT-SN} protocol\cite{Ibm2013} was created. Among the improvements and new features, \ac{MQTT-SN} runs on UDP, adds broker support for indexing topic names, provides a discovery procedure to help clients without a pre-configured server address and supports devices in sleep state. With this approach, an extra gateway is necessary to convert from \ac{MQTT-SN} to \ac{MQTT} so the communications can be understood by the broker.
+	In order to address the drawbacks on constrained devices, \ac{MQTT-SN} protocol \cite{Ibm2013} was created. Among the improvements and new features, \ac{MQTT-SN} runs on UDP, adds broker support for indexing topic names, provides a discovery procedure to help clients without a pre-configured server address and supports devices in sleep state. With this approach, an extra gateway is necessary to convert from \ac{MQTT-SN} to \ac{MQTT} so the communications can be understood by the broker.
 
 \subsubsection{Session Layer}
 
@@ -97,8 +97,8 @@ So far, security issues have not been addressed in any of the previous layers. T
 	\ac{DTLS} aims to be the equivalent of \ac{TLS} over \ac{UDP} transport layer. \ac{DTLS} works over datagrams that can be lost, duplicated, or received in the wrong order, therefore needing some extra mechanisms (application layer protocols \ac{QoS}) to cope with that. Although both \ac{CoAP} and \ac{MQTT-SN} work over \ac{UDP} and use \ac{DTLS} as the adopted security, some authors argue that \ac{DTLS} is not a suitable option \cite{Alghamdi2013} and defend the need of a new integrated security solution. Some of the presented drawbacks are:
 
 \begin{itemize}
-	\item There is no multicast support, which is a key feature in \ac{IoT} (topology discovery and update for example).
-	\item Handshake phase is prone to exhaustion attacks on the device resources.
+	\item There is no multicast support, which is a key feature in \ac{IoT} (topology discovery and update for example);\\
+	\item Handshake phase is prone to exhaustion attacks on the device resources;\\
 	\item The loss of a message in-flight requires the retransmission of all the messages in-flight.
 \end{itemize}
 
@@ -140,18 +140,17 @@ So far, security issues have not been addressed in any of the previous layers. T
 		Session & \ac{TLS} & \ac{DTLS} \\
 		Transport & \ac{TCP} & \ac{UDP} \\
 		Network & IPv6 & 6LoWPAN \\
-		Data-Link/Phy & 802.11 & 802.15.4
+		Data-Link/Physical & 802.11 & 802.15.4
 	\end{tabular}
 \end{table}
 
 \subsection{Attack Analysis, Detection and Mitigation}
 \label{sec:attack_analysis}
 \paragraph{}
-Exploitation of existing solutions in the forms of malicious attacks can be found at all the studied OSI layers. They can go from the well-known \ac{DoS} at the application layer to a physical intruder replacing some node on a sensor field. However, given the characteristics of the devices and networks used in \ac{IoT} combined with the power consumption focus of this work, a specific kind of attacks performed at the network layer is of special interest and importance:
+Exploitation of existing solutions in the forms of malicious attacks can be found at all the studied OSI layers. They can go from a physical intruder replacing some node on a sensor field to the well-known \ac{DoS} at the application layer. However, given the characteristics of the devices and networks used in \ac{IoT} combined with the power consumption focus of this work, a specific kind of attacks performed at the network layer is of special interest and importance: battery depletion attacks, also known as, ``vampire'' attacks.
 
-\paragraph{\textbf{Battery Depletion Attacks aka Vampire Attacks}}
 \paragraph{}
-Battery Depletion Attacks aim at draining the battery, "life", of the network devices, working over time to entirely disable a network, hence being called Vampire Attacks. These attacks do not focus on flooding the network with many packages, instead they drain the node's life by delaying the packets transmission. Many of the existing attacks are not protocol specific \cite{Vasserman2013}, while others target specific protocols and implementations \cite{Pongle2015}. The following attacks aim at giving an overview of the existing attack possibilities on different routing solutions as well as existing mitigation strategies. Additionally, a range of attacks that target the RPL routing protocol is also analysed. Since RPL is the selected protocol of our energy efficient stack, it is of special importance to consider and assure the mitigation of attacks that would drain the device's batteries by exploiting this light weight protocol inner workings.   
+Battery depletion attacks aim at draining the battery, ``life'', of the network devices, working over time to entirely disable a network, hence being called ``vampire'' attacks. These attacks do not focus on flooding the network with many packages, instead they drain the node's life by delaying the packets transmission. Many of the existing attacks are not protocol specific \cite{Vasserman2013}, while others target specific protocols and implementations \cite{Pongle2015}. The following attacks aim at giving an overview of the existing attack possibilities on different routing solutions as well as existing mitigation strategies. Additionally, a range of attacks that target the RPL routing protocol is also analysed. Since RPL is the selected protocol of our energy efficient stack, it is of special importance to consider and assure the mitigation of attacks that would drain the device's batteries by exploiting this light weight protocol's inner workings.   
 
 \subsubsection{Stateless Protocols}
 \label{sec:source_routing}
@@ -160,12 +159,12 @@ In systems that use this type of routing protocols, the source node specifies th
 
 \paragraph{\textbf{Carousel Attack}}
 \paragraph{}
-The objective of this attack is to send a packet along a route composed as a series of loops. This way a single node may forward the malicious packet several times increasing the total energy consumption by a factor of the number of loops the attacker has introduced on the packet header path. It targets source routing protocols by exploiting the limited verification of the packets headers at the intermediary nodes. Figure \ref{fig:carousel_attack} shows an example where a vampire node created a path composed of circles around the network when it could exit after the first hop through the D node.
+The objective of this attack is to send a packet along a route composed as a series of loops. This way, a single node may forward the malicious packet several times increasing the total energy consumption by a factor of the number of loops the attacker has introduced on the packet header path. It targets source routing protocols by exploiting the limited verification of the packet headers at the intermediary nodes. Figure \ref{fig:carousel_attack} shows an example where a vampire node created a path composed of circles around the network when it could have exited after the first hop through the D node.
  
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\linewidth]{figures/Carousel_Attack.png}
-  \caption{Carousel Attack}
+  \includegraphics[width=0.9\linewidth]{figures/Carousel_Attack.pdf}
+  \caption{Carousel Attack.}
   \label{fig:carousel_attack}
 \end{figure}
 
@@ -173,47 +172,48 @@ Existing mitigation strategies rely on checking the source route for loops on in
 
 \paragraph{\textbf{Stretch Attack}}
 \paragraph{}
-The objective of this attack is to create a source route around the network, longer than the one who would be required to transverse the network from the source to the sink. The number of elements in the path would be greater than the optimal path, therefore increasing the total energy consumption by a factor of the number of additional hops. Its success rests on intermediary nodes not checking for better paths. Figure \ref{fig:stretch_attack} shows an example where a vampire node created a path that goes through a greater number of nodes than required to reach the sink.
+The objective of this attack is to create a source route around the network, longer than the one that would be required to transverse the network from the source to the sink. The number of elements in the path would be greater than the optimal path, therefore increasing the total energy consumption by a factor of the number of additional hops. Its success rests on intermediary nodes not checking for better paths. Figure \ref{fig:stretch_attack} shows an example where a vampire node created a path that goes through a greater number of nodes than required to reach the sink.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\linewidth]{figures/Stretch_Attack.png}
-  \caption{Stretch Attack}
+  \includegraphics[width=0.8\linewidth]{figures/Stretch_Attack.pdf}
+  \caption{Stretch Attack.}
   \label{fig:stretch_attack}
 \end{figure}
 
-A limited way of mitigating this attack would be to ensure that path routes have less than the total number of devices on the network. Vasserman and Hoper proposed a property called "no-backtracking" that assures the packet is always moving closer to the sink on every hop. \cite{Vasserman2013}
-
+A limited way of mitigating this attack would be to ensure that path routes have less than the total number of devices on the network. Vasserman and Hoper proposed a property called ``no-backtracking'' that assures the packet is always moving closer to the sink on every hop \cite{Vasserman2013}.
+\pagebreak
 \subsubsection{Stateful Protocols}
 \label{sec:tables_routing}
 \paragraph{}
-In systems that use this type of routing protocols, network nodes are aware of the network topology and its state, being able to make local decisions on the node to whom they will forward the packet. The effect of the Vampires on this type of routing is limited since the route is built dynamically from many independent forwarding decisions. However, attackers can still cause damage by forcing packet forwarding through nodes that would not be on the optimal path, for example by forwarding the packet back to the source. A couple of examples of these attacks are the Directional Antenna and Wormhole Attacks.
+In systems that use this type of routing protocols, network nodes are aware of the network topology and its state, being able to make local decisions on the node to whom they will forward the packet. The effect of the Vampires on this type of routing is limited since the route is built dynamically from many independent forwarding decisions. However, attackers can still cause damage by forcing packet forwarding through nodes that would not be on the optimal path, for example, by forwarding the packet back to the source. A couple of examples of these attacks are the Directional Antenna and Wormhole Attacks.
 
 \paragraph{\textbf{Directional Antenna Attack}}
 \paragraph{}
-In this attack, the attacker takes the role of an intermediary and not the source of a packet. If the attacker has the resources to use a directional antenna, it can deposit a packet on arbitrary parts of the network while also forwarding the packet locally. This causes nodes that were not on the optimal path to also consume energy by forwarding a packet they would not normally receive, therefore increasing the total energy consumption by a factor of the directions the attacker can position the antenna and the distance between the receiver and the sink. Figure \ref{fig:directional_antenna_attack} shows an example where a vampire intermediary deposited a node on a distant location of the network, causing the packet to follow two different routes towards it's destination
+In this attack, the attacker takes the role of an intermediary and not the source of a packet. If the attacker has the resources to use a directional antenna, it can deposit a packet on arbitrary parts of the network while also forwarding the packet locally. This causes nodes that were not on the optimal path to also consume energy by forwarding a packet they would not normally receive, therefore increasing the total energy consumption by a factor of the directions the attacker can position the antenna and the distance between the receiver and the sink. Figure \ref{fig:directional_antenna_attack} shows an example where a ``vampire'' intermediary deposited a node on a distant location of the network, causing the packet to follow two different routes towards its destination
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\linewidth]{figures/Directional_Antenna_Attack.png}
-  \caption{Directional Antenna Attack}
+  \includegraphics[width=0.8\linewidth]{figures/Directional_Antenna_Attack.pdf}
+  \caption{Directional Antenna Attack.}
   \label{fig:directional_antenna_attack}
 \end{figure}
 
-A mitigation strategy could be to analyse the route paths of a given packet that reached the sink more than once. The last node identifier to appear duplicated before the path started to diverge would be one who then directed the packet to multiple regions, the attacker.
+A mitigation strategy could be to analyse the route paths of a given packet that reached the sink more than once. The last node identifier to appear duplicated before the path started to diverge would be one who then directed the packet to multiple regions, therefore revealing the attacker.
 
 \paragraph{\textbf{Wormhole Attack}}
 \paragraph{}
-This attack can be seen as variation of the Directional Antenna Attack but with the collaboration of two or more attackers. Instead of simply forwarding the packets to arbitrary parts of the network, the attacker emulates a link between them and advertises to the network that recently formed connection. This disrupts the topology and has severe impact on routing paths since attackers can indicate that the link cost between them is very low therefore influence the forwarding decisions of neighbour nodes. By using these malicious routes, the energy consumption is increased because either this channel does not exist at all (packets are dropped and need to be resent), or the transmission cost between the attackers is greater than the normal message propagation through the network. Figure \ref{fig:wormhole_attack} shows an example where two vampires emulate a connection between them influencing the routing decisions of their neighbours.
+This attack can be seen as variation of the Directional Antenna Attack but with the collaboration of two or more attackers. Instead of simply forwarding the packets to arbitrary parts of the network, the attacker emulates a link between them and advertises to the network that recently formed connection. This disrupts the topology and has severe impact on routing paths since attackers can indicate that the link cost between them is very low, and therefore influence the forwarding decisions of neighbour nodes. By using these malicious routes, the energy consumption is increased because either this channel does not exist at all (packets are dropped and need to be resent), or the transmission cost between the attackers is greater than the normal message propagation through the network. Figure \ref{fig:wormhole_attack} shows an example where two vampires emulate a connection between them influencing the routing decisions of their neighbours. The hops numbered with prime numbers represent the path taken by a packet after the wormhole is constructed. Although the packet still reached the destination, the cost of the wormhole path is greater than the previous regular path.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\linewidth]{figures/Wormhole_attack.png}
-  \caption{Wormhole Attack}
+  \includegraphics[width=0.85\linewidth]{figures/Wormhole_attack.pdf}
+  \caption{Wormhole Attack.}
   \label{fig:wormhole_attack}
 \end{figure} 
 
 Wormhole attacks can be prevented using the Markle tree authentication. This tree is organized from the leafs towards the root where every parent knows their children and asks them for authentication based on their ID and public key.
+\pagebreak
 
 \subsubsection{RPL Specific Attacks}
 \paragraph{} 
@@ -221,24 +221,24 @@ Wormhole attacks can be prevented using the Markle tree authentication. This tre
 
 \paragraph{\textbf{Selective Forwarding Attack}}
 \paragraph{}
-In a selective forwarding attack, a malicious node can launch a \ac{DoS} attack by selectively forwarding packets. Its main goal is to disrupt routing paths but can be used to filter any protocol. For sustainability an attacker could let the RPL control messages pass by and drop the remaining packets. Depending on the routing scheme being used (source routing or stateful tables) the source could first verify path availability or each node could dynamically decide to forward the packet through another path with similar quality. In any case a good approach would be to report those failures to the underlying RPL system in order to improve the path quality.
+In a selective forwarding attack, a malicious node can launch a \ac{DoS} attack by selectively forwarding packets. Its main goal is to disrupt routing paths but can be used to filter any protocol. Since \ac{RPL} has built in topology repair mechanisms, a full packet filtering would trigger a healing phase and leave the malicious node out of the topology. For sustainability, an attacker could let the RPL control messages pass by and drop the remaining packets. Depending on the routing scheme being used (source routing or stateful tables) the source could first verify path availability or each node could dynamically decide to forward the packet through another path with similar quality. In any case, a good approach would be to report those failures to the underlying RPL system in order to trigger a preventive healing and improve the route quality.
 
 \paragraph{\textbf{Hello Flooding Attack}}
 \paragraph{}
 The Hello in the name of this attack comes from the initial message a node sends when joining a network. By broadcasting this message with a strong signal power, an attacker can try to introduce himself as neighbour to many nodes of the network, or at least force a large portion of the network to spend energy starting the message exchange for node insertion. A simple solution for this attack would be to test the bi-directionality of the link. If no acknowledgement is received, the path is discarded. Another approach, if geographical locations of the nodes are known, would be to discard every hello message coming from a location beyond the transmission capabilities of ordinary nodes.
 
-\subsubsection{Protocol Independent}
+\subsubsection{Protocol Independent Attacks}
 \paragraph{}
 The last addressed category is not dependant on network topologies or protocol messages. It focuses on attacks that can be performed regardless of the used protocol and whose goal is to obtain information about a network device. With that information an attacker can, for example, try to include himself in the network as a legitimate device or spoof his identity to forward traffic towards him. A couple of examples of these attacks are the Clone and Sybil Attacks.
 
 \paragraph{\textbf{Clone ID and Sybil Attack}}
 \paragraph{}
-As the name suggests, in a clone ID attack, the attacker steals the identity of a legitimate network node by copying the information of that node onto another node. This way the attacker can gain access to the traffic that was destined to the legitimate node, prevent packets to reach their intended destination and even influence voting schemes. The Sybil attack is similar to the Clone ID, with the difference that the attacker uses several stolen identities on the same physical node. This way, large parts of a network can be taken over without the need to deploy several physical nodes. Figure \ref{fig:clone_attack} shows an example of a clone ID attack where the cloned attacker received the packet that was originally destined to the legitimate node.
+As the name suggests, in a clone ID attack, the attacker steals the identity of a legitimate network node by copying the information of that node onto another node. This way the attacker can gain access to the traffic that was destined to the legitimate node, prevent packets to reach their intended destination and can even influence voting schemes. The Sybil attack is similar to the Clone ID, with the difference that the attacker uses several stolen identities on the same physical node. This way, large parts of a network can be taken over without the need to deploy several physical nodes. Figure \ref{fig:clone_attack} shows an example of a clone ID attack where the cloned attacker received the packet that was originally destined to the legitimate node.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\linewidth]{figures/Clone_attack.png}
-  \caption{Clone ID Attack}
+  \includegraphics[width=0.85\linewidth]{figures/Clone_attack.pdf}
+  \caption{Clone ID Attack.}
   \label{fig:clone_attack}
 \end{figure} 
 
@@ -250,24 +250,24 @@ Proposed mitigation strategies for this type of attacks consist on keeping track
 The term bootstrapping is applied to the process in which a new device is connected to an existing network. To achieve a secure bootstrapping, a unique identity and security parameters are associated with the device during this phase. There are several ways to carry out the initial setup, either via a physical interface or wirelessly. In the case of wireless bootstrapping, attention must be given to eavesdropping so that the secure credentials cannot be intercepted.\\
 Since many of the studied attacks are to be performed by a malicious intruder capable of interacting with the network, if we could assure a secure bootstrapping, meaning that the new node would be authenticated before becoming an active member of the network, a large portion of those attacks could no longer be performed. The following bootstrapping techniques were summarized in \cite{Fischer2012} and aim at providing secure bootstrapping for \ac{IoT} devices.
 
-\subsubsection{Token Based}
+\subsubsection{Token-Based}
 \paragraph{}
-In token based distribution, device specific security credentials are generated and written to a token. That token can range from memory sticks or flash cards to \ac{RFID} tags or smartcards. Is has the advantage that this initial credential generation can be performed on a physically controlled environment and only later, on the commissioning phase, is the token plugged into the device. After the successful insertion of the security credentials, the token can be removed and collected back into the secure environment. This process can be considered of high security since the credentials are generated on a closed environment and are transmitted through a physical link. To further increase the security level, a password could be used to encrypt the credentials, however, that would require the device to have some kind of interface to insert the password. If the case of a large number of devices, this approach would be unsuitable due to the management effort of manually deploying the tokens to the devices \cite{Fischer2012}.
+In token-based distribution, device specific security credentials are generated and written to a token. That token can range from memory sticks or flash cards to \ac{RFID} tags or smartcards. Is has the advantage that this initial credential generation can be performed on a physically controlled environment and only later, on the commissioning phase, is the token plugged into the device. After the successful insertion of the security credentials, the token can be removed and collected back into the secure environment. This process can be considered of high security since the credentials are generated on a closed environment and are transmitted through a physical link. To further increase the security level, a password could be used to encrypt the credentials, however, that would require the device to have some kind of interface that would allow to input the password. In the case of a large number of devices, this approach would be unsuitable due to the management effort of manually deploying the tokens to the devices \cite{Fischer2012}.
 
-\subsubsection{Identifier Based Access Control List}
+\subsubsection{Identifier-Based Access Control List}
 \paragraph{}
-With an identifier based \ac{ACL}, new devices are allowed or denied access to the network based on their unique ID. A commonly used identifier is the MAC address. This has some major drawbacks in security since, firstly, provides no assurances on the first time the device connects to the network. An attacker can easily intercept the first messages and get access to the device information. And secondly, after the bootstrapping phase, MAC addresses can be spoofed by an attacker, allowing him access to the network by bypassing the \ac{ACL} with the identifier of a legitimate node.
+With an identifier based \ac{ACL}, new devices are allowed or denied access to the network based on their unique ID. A commonly used identifier is the MAC address. This has some major drawbacks in security since, firstly, it provides no assurances on the first time the device connects to the network. An attacker can easily intercept the first messages and get access to the device information. And secondly, after the bootstrapping phase, MAC addresses can be spoofed by an attacker, allowing him access to the network by bypassing the \ac{ACL} with the identifier of a legitimate node.
 
-\subsubsection{One Time Passwords}
+\subsubsection{One-Time-Passwords}
 \paragraph{}
-The use of one time passwords enhances the manual input of credentials on the device to be bootstrapped. The person responsible for the deployment of the new node should receive through a secure channel an one time password, that would then use to authenticate the node. This one time password could be used to authenticate locally generated key material (either certificate requests or generated key pair) towards the management station or root node. The achieved security level is proportional to the security of the channel used to obtain the one time password, but assuming that channel is secure, so is this method. The drawback is that it forces devices to possess some kind of interface to insert the one time password.
+The use of one-time-passwords enhances the manual input of credentials on the device to be bootstrapped. The person responsible for the deployment of the new node should receive through a secure channel an one-time-password, that would then be used to authenticate the node, by authenticating its locally generated key material. This material can be either a certificate request to a \ac{CA} or a locally generated public/private key pair. The achieved security level is proportional to the security of the channel used to obtain the one time password, but assuming that channel is secure, so is this method. The drawback is that it forces devices to possess some kind of interface to insert the one time password.
 
 \subsubsection{Manufacturer Installed Credentials}
 \paragraph{}
-So far, excluding the identifier based access control list, the intent of the studied techniques is to supply to the new device the security credentials needed to obtain access to the network, or at least provide an authentication method that allows fetching those credentials. In manufacturer installed credentials, those security credentials are deployed during the manufacturing process of the device vendor. Those credentials are typically a public/private key pair certificate bound to the identifier of the device. This certificate can be integrated into the initial load of the firmware or stored in a separate integrated circuit designed for credential storing. In the second case, this method security can be considered very high since those integrated circuits assure that the private key cannot be read from memory. This way, the new device comes shipped with the necessary security credentials not only for the bootstrapping phase but also for the normal operation phase since it does not need to fetch any additional credentials. The effort is on the root or management station that needs to import the vendor CA certificates to assure the new device credentials are trustworthy. Also the production costs increase, implying an increased device cost.
+So far, excluding the identifier based access control list, the intent of the studied techniques is to supply to the new device the security credentials needed to obtain access to the network, or at least provide an authentication method that allows fetching those credentials. In manufacturer installed credentials, those security credentials are deployed during the manufacturing process of the device vendor. Those credentials are typically a public/private key pair certificate bound to the identifier of the device. This certificate can be integrated into the initial loading of the firmware or stored in a separate integrated circuit designed for credential storing. In the second case, this method's security can be considered very high since those integrated circuits assure that the private key cannot be read from memory. This way, the new device comes shipped with the necessary security credentials not only for the bootstrapping phase but also for the normal operation phase since it does not need to fetch any additional credentials. The effort is on the root or management station that needs to import the vendor \ac{CA} certificates to assure the new device credentials are trustworthy. Also the production costs increase, implying an increased device cost.
 
-\subsubsection{Proposed Solutions}
+\subsubsection{Recently Proposed Solutions}
 \paragraph{}
 Secure bootstrapping and network admission solutions have already been proposed in past literature. However, the development and optimization of application layer protocols as well as network layer routing schemes allows for new approaches and solutions that can now fit the nature of \ac{IoT} devices.
-Bergman et al. \cite{Bergmann2012} proposed a three-phase secure bootstrapping technique for nodes in a \ac{CoAP} network. Firstly the joining node broadcasts a request for a \ac{CSDS}. This server, once contacted by a new node takes the responsibility of key distribution. Then the system goes under a vulnerable phase where the secret is transmitted from the \ac{CSDS} onto the new device. The author proposes a short audible or visual feedback to the human installer when the secret is received and assumes that potential eavesdroppers can not intercept this transmission. Finally, this secret is used to setup de \ac{DTLS} connection. This approach has major security drawbacks. On the secret transmission phase, the authors propose limiting the radio power to a low level and disable data forwarding beyond the local network segment, but this technique cannot assure that an attacker won't be able to intercept the transmission.\\
+Bergman et al. \cite{Bergmann2012} proposed a three-phase secure bootstrapping technique for nodes in a \ac{CoAP} network. Firstly the joining node broadcasts a request for a \ac{CSDS}. This server, once contacted by a new node takes the responsibility of key distribution. Then the system goes under a vulnerable phase where the secret is transmitted from the \ac{CSDS} onto the new device. The author's proposes a short audible or visual feedback to the human installer when the secret is received and assumes that potential eavesdroppers can not intercept this transmission. Finally, this secret is used to setup the \ac{DTLS} connection. This approach has major security drawbacks. On the secret transmission phase, so the authors propose limiting the radio power to a low level and disable data forwarding beyond the local network segment, but these techniques cannot assure that an attacker won't be able to intercept the transmission.\\
 Oliveira et al. \cite{Oliveira2013} proposed an admission control solution for 6LoWPAN networks based on administrative approval. Each joining node would broadcast its presence to the network, and that broadcast would be received by the administrator in the management server. Then, the administrator would grant access to that new device based on its address, and that information would be transmitted to all the devices in the network. After this phase, the device would be allowed communication as a regular member of the network by its neighbours. This approach has the advantage of requiring no previous setup on the device before operation but is vulnerable to the attacks previously mentioned in identifier based \ac{ACL}. The authors state that work still needs to be performed in order to validate the sensor identity and leave as possibility the pre-instalment of keys on the device. 
