@@ -11,11 +11,11 @@ The first requirement for the physical layer of the \ac{IoT} is the use of wirel
 
 \paragraph{\textbf{IEEE 802.11}}
 \paragraph{}
-IEEE 802.11 is a set of standards for \ac{WLAN} communications. They are the basis for the so called Wi-Fi. IEEE 802.11 is concerned with high speed, long ranges, message forwarding and high data throughput. These concerns directly clash with the \ac{IoT} objectives and account for the added power consumption of this protocol.
+IEEE 802.11 \cite{IEEE2012} is a set of standards for \ac{WLAN} communications. They are the basis for the so called Wi-Fi. IEEE 802.11 is concerned with high speed, long ranges, message forwarding and high data throughput. These concerns directly clash with the \ac{IoT} objectives and account for the added power consumption of this protocol.
 
 \paragraph{\textbf{IEEE 802.15.4}}
 \paragraph{}
-IEEE 802.15.4 on the other hand was created for \ac{LR-WPAN} and its specifications focus on low power consumption, low data rate, low cost and high message throughput make it a strong candidate for \ac{IoT} applications.
+IEEE 802.15.4 \cite{IEEEComputerSociety2011} on the other hand was created for \ac{LR-WPAN} and its specifications focus on low power consumption, low data rate, low cost and high message throughput make it a strong candidate for \ac{IoT} applications.
 	The IEEE 802.15.4 standard supports two types of network nodes, the \ac{FFD} that acts as coordinator or normal node, and the \ac{RFD} that is very simple, with very constrained resources and can only communicate with coordinators. The coordinators are responsible for controlling and maintaining the network. \ac{FFD} are capable of storing a routing table in their memory and can implement a full \ac{MAC}.
 	IEEE 802.15.4 supports star, peer-to-peer (mesh) and cluster-tree topologies.
 	Regarding performance, it would be unfair to directly compare the two, since IEEE 802.11 transmission power and receiver sensitivity are much greater than 802.15.4. Even if we limit both to a low power level, IEEE 802.11 still outperforms IEEE 802.15.4 in terms of packet delivery ratio, throughput, latency, jitter and average energy consumption. However this comes at the cost of a far lower transmission range \cite{Transmission2011}.
@@ -26,12 +26,12 @@ IEEE 802.15.4 on the other hand was created for \ac{LR-WPAN} and its specificati
 
 \paragraph{\textbf{6LoWPAN}}
 \paragraph{}
-	The \ac{IoT} vision and its massive deployment can only be achieved through the use of IPv6. However, physical layers more suitable for communication over constrained networks pose some limitations to the use of the IPv6 messages. For example, the limited packet size in IEEE 802.15.4 based networks. To tackle these issues, the \ac{IETF} \ac{6LoWPAN} working group developed a standard based on header compression to reduce the transmission overhead, fragmentation to meet the IPv6 \ac{MTU} requirements and forwarding to link-layer to support multi-hop delivery \cite{Hui2008}.
+	The \ac{IoT} vision and its massive deployment can only be achieved through the use of IPv6. However, physical layers more suitable for communication over constrained networks pose some limitations to the use of the IPv6 messages. For example, the limited packet size in IEEE 802.15.4 based networks. To tackle these issues, the \ac{IETF} \ac{6LoWPAN} \cite{Shelby2012} working group developed a standard based on header compression to reduce the transmission overhead, fragmentation to meet the IPv6 \ac{MTU} requirements and forwarding to link-layer to support multi-hop delivery \cite{Hui2008}.
 	\ac{6LoWPAN} is able to remove a major share of IPv6 overheads, being able to compress its headers to two bytes, therefore allowing small IPv6 datagrams to be sent over IEEE 802.15.4 networks. 
 	
 \paragraph{\textbf{RPL}}
 \paragraph{}
-With the use of 6LoWPAN, upper layer routing protocols can now use the IPv6 addressing scheme. Given the possible frequent topology changes associated with the radio-link instability, successful  solutions must take these requirements into account on their specification. \ac{RPL} can support a wide variety of link-layers and is prepared for devices with very limited resources. It is able to build up network routes, distribute routing knowledge among nodes and adapt the topology in a very efficient way. More in depth, \ac{RPL} creates a \ac{DODAG} between the 6LoWPAN network nodes (Figure \ref{fig:rpl_dodag}) that supports unidirectional traffic towards the \ac{DODAG} root and bidirectional traffic between devices. Each node has a rank that indicates its position relative to other nodes and with respect to the root. This rank is used to create optimized network paths. In order to allow packets to propagate downwards in the topology, either source routing or stateful routing tables are used (More Information on this two types of routing are given in sections \ref{sec:source_routing} and \ref{sec:tables_routing}). For both modes, the \ac{DODAG} root always maintains a complete list of the network nodes. \ac{RPL} provides a set of control messages in order to exchange routing graph information. \ac{DIO} are used to advertise information needed to build the \ac{DODAG}. \ac{DAO}  are used to advertise information so that downwards traffic can go through the nodes towards the leafs. Nodes may also resort to \ac{DIS} messages to request graph information from neighbour nodes. Finally, RPL has a built in topology repair mechanism that acts in the case of a routing topology failure, link failure or node failure. In case the topology needs to be rebuilt, a link layer metric is used to calculate the new route. The new path is considered fit for work if the link layer acknowledgements are received on it.
+With the use of 6LoWPAN, upper layer routing protocols can now use the IPv6 addressing scheme. Given the possible frequent topology changes associated with the radio-link instability, successful  solutions must take these requirements into account on their specification. \ac{RPL} \cite{Winter2012} can support a wide variety of link-layers and is prepared for devices with very limited resources. It is able to build up network routes, distribute routing knowledge among nodes and adapt the topology in a very efficient way. More in depth, \ac{RPL} creates a \ac{DODAG} between the 6LoWPAN network nodes (Figure \ref{fig:rpl_dodag}) that supports unidirectional traffic towards the \ac{DODAG} root and bidirectional traffic between devices. Each node has a rank that indicates its position relative to other nodes and with respect to the root. This rank is used to create optimized network paths. In order to allow packets to propagate downwards in the topology, either source routing or stateful routing tables are used (More Information on this two types of routing are given in sections \ref{sec:source_routing} and \ref{sec:tables_routing}). For both modes, the \ac{DODAG} root always maintains a complete list of the network nodes. \ac{RPL} provides a set of control messages in order to exchange routing graph information. \ac{DIO} are used to advertise information needed to build the \ac{DODAG}. \ac{DAO}  are used to advertise information so that downwards traffic can go through the nodes towards the leafs. Nodes may also resort to \ac{DIS} messages to request graph information from neighbour nodes. Finally, RPL has a built in topology repair mechanism that acts in the case of a routing topology failure, link failure or node failure. In case the topology needs to be rebuilt, a link layer metric is used to calculate the new route. The new path is considered fit for work if the link layer acknowledgements are received on it.
 
 \begin{figure}[h!]
   \centering
@@ -48,7 +48,7 @@ With the use of 6LoWPAN, upper layer routing protocols can now use the IPv6 addr
 
 \paragraph{\textbf{\ac{CoAP}}}
 \paragraph{}
-	\ac{CoAP} is a document transfer protocol based on \ac{REST} on top of \ac{HTTP} functionalities. \ac{CoAP} objective is to enable tiny constrained devices to use RESTful interactions, where clients and servers expose and consume web services using \ac{URIs} together with  \ac{HTTP} Get, Post, Put and Delete methods. Unlike \ac{REST}, \ac{CoAP} runs over \ac{UDP} instead of \ac{TCP} which makes it suitable for full IP networking in small micro-controllers. Retries and reordering are implemented at the application stack using a messaging sub-layer that detects duplicated messages and provides reliable communication using different types of messages. Confirmable messages must be acknowledged by the receiver, nonconfirmable follow the fire-and-forget model. Despite being a lightweight protocol, \ac{CoAP} still provides important features:
+	\ac{CoAP} \cite{Shelby2014} is a document transfer protocol based on \ac{REST} on top of \ac{HTTP} functionalities. \ac{CoAP} objective is to enable tiny constrained devices to use RESTful interactions, where clients and servers expose and consume web services using \ac{URIs} together with  \ac{HTTP} Get, Post, Put and Delete methods. Unlike \ac{REST}, \ac{CoAP} runs over \ac{UDP} instead of \ac{TCP} which makes it suitable for full IP networking in small micro-controllers. Retries and reordering are implemented at the application stack using a messaging sub-layer that detects duplicated messages and provides reliable communication using different types of messages. Confirmable messages must be acknowledged by the receiver, nonconfirmable follow the fire-and-forget model. Despite being a lightweight protocol, \ac{CoAP} still provides important features:
 	
 \begin{itemize}
 	\item Resource Observation - \ac{CoAP} can extend the \ac{HTTP} request model with the ability to observe a resource therefore monitoring resources of interest using a publish/subscribe mechanism;\\
@@ -61,7 +61,7 @@ A study that compared \ac{CoAP} and \ac{HTTP} using mobile networks concluded th
 
 \paragraph{\textbf{\ac{MQTT}}}
 \paragraph{}
-	\ac{MQTT} is a publish/subscribe messaging protocol designed for lightweight \ac{M2M} communications. It employs a client/server model and consists of three components: the publisher, the subscriber and a broker.
+	\ac{MQTT} \cite{OASIS2014} is a publish/subscribe messaging protocol designed for lightweight \ac{M2M} communications. It employs a client/server model and consists of three components: the publisher, the subscriber and a broker.
 Subscribers register their interest for a specific topic and then get informed by the broker when a publisher generates data regarding that topic. Every message is a discrete chunk of data, opaque to the broker. The broker, on his side, checks authorization of the publishers and subscribers. \ac{MQTT} supports three Application Level \ac{QoS} levels:
 
 \begin{itemize}
@@ -155,7 +155,7 @@ Battery depletion attacks aim at draining the battery, ``life'', of the network 
 \subsubsection{Stateless Protocols}
 \label{sec:source_routing}
 \paragraph{}
-In systems that use this type of routing protocols, the source node specifies the entire route to the destination in the packet header. This means that intermediaries do not make decisions regarding the next hop, they only forward to the next node as specified in the original path therefore reducing the amount of computation performed and used energy. However, the source node must ensure that the route is valid at the time of sending and that the neighbour relations among the devices allow the specified forwarding path. Using this transmission scheme, a malicious device can specify paths through the network that are far from optimal, wasting energy at the intermediate nodes who follow the included malicious source route. A couple of examples of these attacks are the Carousel and Stretch Attacks.
+In systems that use this type of routing protocols, the source node specifies the entire route to the destination in the packet header. This means that intermediaries do not make decisions regarding the next hop, they only forward to the next node as specified in the original path therefore reducing the amount of computation performed and used energy. However, the source node must ensure that the route is valid at the time of sending and that the neighbour relations among the devices allow the specified forwarding path. Using this transmission scheme, a malicious device can specify paths through the network that are far from optimal, wasting energy at the intermediate nodes who follow the included malicious source route. The Carousel and Stretch Attacks are examples of these attacks.
 
 \paragraph{\textbf{Carousel Attack}}
 \paragraph{}
@@ -186,7 +186,7 @@ A limited way of mitigating this attack would be to ensure that path routes have
 \subsubsection{Stateful Protocols}
 \label{sec:tables_routing}
 \paragraph{}
-In systems that use this type of routing protocols, network nodes are aware of the network topology and its state, being able to make local decisions on the node to whom they will forward the packet. The effect of the Vampires on this type of routing is limited since the route is built dynamically from many independent forwarding decisions. However, attackers can still cause damage by forcing packet forwarding through nodes that would not be on the optimal path, for example, by forwarding the packet back to the source. A couple of examples of these attacks are the Directional Antenna and Wormhole Attacks.
+In systems that use this type of routing protocols, network nodes are aware of the network topology and its state, being able to make local decisions on the node to whom they will forward the packet. The effect of the Vampires on this type of routing is limited since the route is built dynamically from many independent forwarding decisions. However, attackers can still cause damage by forcing packet forwarding through nodes that would not be on the optimal path, for example, by forwarding the packet back to the source. The Directional Antenna and Wormhole Attacks are examples of these attacks.
 
 \paragraph{\textbf{Directional Antenna Attack}}
 \paragraph{}
@@ -212,7 +212,7 @@ This attack can be seen as variation of the Directional Antenna Attack but with 
   \label{fig:wormhole_attack}
 \end{figure} 
 
-Wormhole attacks can be prevented using the Markle tree authentication. This tree is organized from the leafs towards the root where every parent knows their children and asks them for authentication based on their ID and public key.
+Wormhole attacks can be prevented using the Merkle tree authentication \cite{Khan2013}. This tree is organized from the leafs towards the root where every parent knows their children and asks them for authentication based on their ID and public key.
 \pagebreak
 
 \subsubsection{RPL Specific Attacks}
@@ -229,7 +229,7 @@ The Hello in the name of this attack comes from the initial message a node sends
 
 \subsubsection{Protocol Independent Attacks}
 \paragraph{}
-The last addressed category is not dependant on network topologies or protocol messages. It focuses on attacks that can be performed regardless of the used protocol and whose goal is to obtain information about a network device. With that information an attacker can, for example, try to include himself in the network as a legitimate device or spoof his identity to forward traffic towards him. A couple of examples of these attacks are the Clone and Sybil Attacks.
+The last addressed category is not dependant on network topologies or protocol messages. It focuses on attacks that can be performed regardless of the used protocol and whose goal is to obtain information about a network device. With that information an attacker can, for example, try to include himself in the network as a legitimate device or spoof his identity to forward traffic towards him. The Clone and Sybil Attacks are examples of these attacks.
 
 \paragraph{\textbf{Clone ID and Sybil Attack}}
 \paragraph{}

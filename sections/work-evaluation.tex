@@ -1,9 +1,9 @@
 Following the power-aware perspective of this work, our solution will evaluate the power consumption of the system in several scenarios with different network configurations:
 
 \begin{itemize}
-	\item No Security: The system does not provide any type of security credentials. All messages are exchanged in plain text and no node authentication is performed. This will be the baseline.
-	\item Shared Key: The system provides to new nodes a shared group key that enables them to join a secure instance of the network layer protocol RPL therefore assuring node authentication at the network layer.
-	\item Asymmetric Cryptography : The system provides to new nodes an asymmetric key pair and the client observer public key. This enables the new nodes to join a secure instance of the application layer protocol \ac{CoAP} therefore assuring node authentication at the application layer. Moreover, this enables the \ac{DTLS} handshake to be performed using raw public keys assuring message confidentiality and integrity.
+	\item No Security: The system does not provide any type of security credentials. All messages are exchanged in plain text and no node authentication is performed. This will be the baseline.\\
+	\item Shared Key: The system provides to new nodes a shared group key that enables them to join a secure instance of the network layer protocol RPL therefore assuring node authentication at the network layer.\\
+	\item Asymmetric Cryptography : The system provides to new nodes an asymmetric key pair and the client observer public key. This enables the new nodes to join a secure instance of the application layer protocol \ac{CoAP} therefore assuring node authentication at the application layer. Moreover, this enables the \ac{DTLS} handshake to be performed using raw public keys assuring message confidentiality and integrity.\\
 	\item Full Security Credentials: The system provides to new nodes both the shared group key, the asymmetric key pair and the client observer public key. 
 \end{itemize}
 
